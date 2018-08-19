@@ -1,0 +1,37 @@
+spring:
+  application:
+    name: gateway-server
+
+server:
+  port: 8765
+  
+zuul:
+  routes:
+    cuenta:
+      path: /api/v1/cuentas/**
+      serviceId: cuenta-microservice
+      stripPrefix: false
+    negocio:
+      path: /api/v1/negocios/**
+      serviceId: negocio-microservice
+      stripPrefix: false
+    login:
+      path: /api/v1/authentifications/**
+      serviceId: login-microservice
+      stripPrefix: false
+    catalogos:
+      path: /api/v1/catalogos/**
+      serviceId: catalogos-microservice
+      stripPrefix: false
+    ofertas:
+      path: /api/v1/ofertas/**
+      serviceId: ofertas-microservice
+      stripPrefix: false
+
+            
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+    registerWithEureka: true # solo le habla a eureka pero no se registra
+

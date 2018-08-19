@@ -1,0 +1,84 @@
+buildscript {
+  ext {
+    springBootVersion = '1.5.10.RELEASE'
+  }
+  repositories {
+    jcenter()
+    mavenCentral()
+  }
+  dependencies {
+    classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    classpath 'com.bmuschko:gradle-docker-plugin:3.2.0'
+  }
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+apply plugin: 'org.springframework.boot'
+apply plugin: com.bmuschko.gradle.docker.DockerRemoteApiPlugin
+
+jar {
+  baseName = 'service'
+  version = ''
+}
+
+
+springBoot {
+  executable = true
+}
+
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+repositories {
+  jcenter()
+  mavenCentral()
+}
+
+ext {
+  springBootAdminVersion = '1.5.7'
+  springCloudVersion = 'Edgware.SR2'
+}
+
+dependencyManagement {
+  imports {
+    mavenBom "de.codecentric:spring-boot-admin-dependencies:${springBootAdminVersion}"
+    mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+  }
+}
+
+dependencies {
+  //compile('de.codecentric:spring-boot-admin-starter-client')
+  compile('de.codecentric:spring-boot-admin-starter-server')
+  compile('de.codecentric:spring-boot-admin-server-ui')
+  //compile 'de.codecentric:spring-boot-admin-server-ui:1.5.4'
+
+  compile('org.codehaus.groovy:groovy-all:2.4.8')
+  testCompile('org.springframework.boot:spring-boot-starter-test')
+}
+
+task createDockerfile(type: com.bmuschko.gradle.docker.tasks.image.Dockerfile) {
+  destFile = project.file('build/libs/Dockerfile')
+  from 'openjdk:8u151-jre-slim'
+  maintainer 'Aqui tu nombre "tu@tuempresa.com"'
+  copyFile 'service.jar', '/opt/service.jar'
+
+  exposePort 8080
+  entryPoint 'java', "-Djava.awt.headless=true", "-Xms256m", "-Xmx256m", '-jar', '/opt/service.jar'
+}
+
+task buildImage(type: com.bmuschko.gradle.docker.tasks.image.DockerBuildImage) {
+  dependsOn createDockerfile
+  inputDir = createDockerfile.destFile.parentFile
+  tag = "circulo7/curso-ms-2018-febrero-monitor:${project.version}".toString().toLowerCase()
+}
+
+task pushImage(type: com.bmuschko.gradle.docker.tasks.image.DockerPushImage) {
+  dependsOn buildImage
+  imageName = buildImage.tag
+}
+
+createDockerfile.dependsOn bootRepackage
+

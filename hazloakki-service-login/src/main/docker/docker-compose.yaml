@@ -1,0 +1,7 @@
+#https://stackoverflow.com/questions/35845144/how-can-i-create-a-mysql-db-with-docker-compose
+version: '3'
+services:
+  login:
+    image: jovaniac/login-microservice:0.0.1-snapshot
+    ports:
+      - '8087:8087'

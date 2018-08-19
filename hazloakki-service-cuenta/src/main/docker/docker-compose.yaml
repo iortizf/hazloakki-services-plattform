@@ -1,0 +1,24 @@
+#https://stackoverflow.com/questions/35845144/how-can-i-create-a-mysql-db-with-docker-compose
+version: '3'
+services:
+  postgres:
+    build: postgres #con build se puede asociar un dockerfile
+    environment:
+      - POSTGRES_PASSWORD=secret
+    ports:
+      - "5433:5432"
+    volumes:
+      - ./blockstorage_dev/postgres:/var/lib/postgresql/data
+  cuenta:
+    image: jovaniac/cuenta-microservice:0.0.1-snapshot
+    links:
+      - postgres
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/hazloakki_cuenta
+      - SPRING_DATASOURCE_USERNAME=admin
+      - SPRING_DATASOURCE_PASSWORD=admin
+    ports:
+    depends_on:
+      - postgres
+    ports:
+      - '8085:8085'
