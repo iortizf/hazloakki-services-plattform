@@ -85,7 +85,7 @@ public class OfertasAnaliticaServiceImpl implements OfertasAnaliticaService {
 			
 			
 			analiticaEntity.setNumCompartir((analiticaEntity.getNumCompartir() == ofertasAnaliticaDto.getNumCompartir()) ? analiticaEntity.getNumCompartir() : ofertasAnaliticaDto.getNumCompartir());
-			analiticaEntity.setNumMegusta(ofertasAnaliticaDto.getNumMegusta());
+			analiticaEntity.setNumMegusta((ofertasAnaliticaDto.getNumMegusta()));
 			analiticaEntity.setNumNogusta(ofertasAnaliticaDto.getNumNogusta());
 			analiticaEntity.setNumVistas(ofertasAnaliticaDto.getNumVistas());
 			analiticaEntity.setNumVisualizacionfotos(ofertasAnaliticaDto.getNumVisualizacionfotos());
