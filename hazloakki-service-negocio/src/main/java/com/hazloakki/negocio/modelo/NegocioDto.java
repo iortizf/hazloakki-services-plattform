@@ -24,6 +24,11 @@ public class NegocioDto {
 	private boolean estatus;
 	private boolean modoLlevar;
 	private String idCuenta;
+	private String codigoPostal;
+	private String delegacion;
+	private String colonia;
+	private String calle;
+	private String numeroExterior;
 
 	public String getId() {
 		return id;
@@ -167,6 +172,46 @@ public class NegocioDto {
 
 	public void setIdCuenta(String idCuenta) {
 		this.idCuenta = idCuenta;
+	}
+
+	public String getCodigoPostal() {
+		return codigoPostal;
+	}
+
+	public void setCodigoPostal(String codigoPostal) {
+		this.codigoPostal = codigoPostal;
+	}
+
+	public String getDelegacion() {
+		return delegacion;
+	}
+
+	public void setDelegacion(String delegacion) {
+		this.delegacion = delegacion;
+	}
+
+	public String getColonia() {
+		return colonia;
+	}
+
+	public void setColonia(String colonia) {
+		this.colonia = colonia;
+	}
+
+	public String getCalle() {
+		return calle;
+	}
+
+	public void setCalle(String calle) {
+		this.calle = calle;
+	}
+
+	public String getNumeroExterior() {
+		return numeroExterior;
+	}
+
+	public void setNumeroExterior(String numeroExterior) {
+		this.numeroExterior = numeroExterior;
 	}
 	
 	

@@ -37,7 +37,7 @@ public class OfertasAnaliticaController {
 		return ofertasAnaliticaService.crearDatosAnaliticaByOferta(ofertasAnaliticaDto).to();
 	}
 	
-	@GetMapping("/negocios/{id}")
+	@GetMapping("/negocios/{id}/ofertas")
 	public List<OfertasAnaliticaDto> obtenerAnaliticaOfertasByNegocio(@PathVariable("id") String idNegocio){
 		
 		return ofertasAnaliticaService.obtenerOfertasAnaliticByNegocio(idNegocio);

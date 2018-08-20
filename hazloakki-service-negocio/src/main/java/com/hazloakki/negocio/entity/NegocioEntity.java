@@ -14,16 +14,14 @@ import org.hibernate.annotations.GenericGenerator;
 import com.hazloakki.negocio.modelo.NegocioDto;
 
 /**
- * @author Jovani Arzate 
- * 2018-07-01 
- * HazloAkki para Empresas v.1
+ * @author Jovani Arzate 2018-07-01 HazloAkki para Empresas v.1
  *
  */
 
 @Entity
 @Table(name = "negocio")
 public class NegocioEntity implements Serializable {
-	
+
 	private static final long serialVersionUID = 1L;
 
 	@Version
@@ -56,6 +54,13 @@ public class NegocioEntity implements Serializable {
 	private boolean estatus;
 	@Column(name = "modo_llevar")
 	private boolean modoLlevar;
+	@Column(name = "codigo_postal")
+	private String codigoPostal;
+	private String delegacion;
+	private String colonia;
+	private String calle;
+	@Column(name = "numero_exterior")
+	private String numeroExterior;
 
 	public static NegocioEntity from(NegocioDto cuentaDto) {
 
@@ -77,6 +82,11 @@ public class NegocioEntity implements Serializable {
 		negocioEntity.setReservaciones(cuentaDto.isReservaciones());
 		negocioEntity.setModoLlevar(cuentaDto.isModoLlevar());
 		negocioEntity.setEstatus(cuentaDto.isEstatus());
+		negocioEntity.setCodigoPostal(cuentaDto.getCodigoPostal());
+		negocioEntity.setDelegacion(cuentaDto.getDelegacion());
+		negocioEntity.setColonia(cuentaDto.getColonia());
+		negocioEntity.setCalle(cuentaDto.getCalle());
+		negocioEntity.setNumeroExterior(cuentaDto.getNumeroExterior());
 
 		return negocioEntity;
 
@@ -102,6 +112,11 @@ public class NegocioEntity implements Serializable {
 		negocioDto.setReservaciones(isReservaciones());
 		negocioDto.setModoLlevar(isModoLlevar());
 		negocioDto.setEstatus(isEstatus());
+		negocioDto.setCodigoPostal(getCodigoPostal());
+		negocioDto.setDelegacion(getDelegacion());
+		negocioDto.setColonia(getColonia());
+		negocioDto.setCalle(getCalle());
+		negocioDto.setNumeroExterior(getNumeroExterior());
 
 		return negocioDto;
 	}
@@ -256,6 +271,46 @@ public class NegocioEntity implements Serializable {
 
 	public void setIdCuenta(String idCuenta) {
 		this.idCuenta = idCuenta;
+	}
+
+	public String getCodigoPostal() {
+		return codigoPostal;
+	}
+
+	public void setCodigoPostal(String codigoPostal) {
+		this.codigoPostal = codigoPostal;
+	}
+
+	public String getDelegacion() {
+		return delegacion;
+	}
+
+	public void setDelegacion(String delegacion) {
+		this.delegacion = delegacion;
+	}
+
+	public String getColonia() {
+		return colonia;
+	}
+
+	public void setColonia(String colonia) {
+		this.colonia = colonia;
+	}
+
+	public String getCalle() {
+		return calle;
+	}
+
+	public void setCalle(String calle) {
+		this.calle = calle;
+	}
+
+	public String getNumeroExterior() {
+		return numeroExterior;
+	}
+
+	public void setNumeroExterior(String numeroExterior) {
+		this.numeroExterior = numeroExterior;
 	}
 
 }

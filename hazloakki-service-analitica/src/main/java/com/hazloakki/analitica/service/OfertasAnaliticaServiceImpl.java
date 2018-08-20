@@ -12,7 +12,9 @@ import com.hazloakki.analitica.modelo.OfertasAnaliticaDto;
 import com.hazloakki.analitica.repository.OfertasAnaliticaRepository;
 
 /**
- * @author Jovani Arzate 2018-08-14 HazloAkki para Empresas v.1
+ * @author Jovani Arzate 
+ * 2018-08-14 
+ * HazloAkki para Empresas v.1
  *
  */
 @Service
@@ -58,6 +60,11 @@ public class OfertasAnaliticaServiceImpl implements OfertasAnaliticaService {
 	@Override
 	public OfertasAnaliticaEntity crearDatosAnaliticaByOferta(OfertasAnaliticaDto ofertasAnaliticaDto) {
 
+		/*
+		 * Se obtiene primeramente los daos de las oferta, 
+		 * Si no existe se crea los datos analiticos de la oferta
+		 * En caso contrario solo se actualizan los datos nuevos de analitica para la oferta
+		 */
 		OfertasAnaliticaEntity analiticaEntity = ofertasAnaliticaRepository
 				.findByIdOferta(ofertasAnaliticaDto.getIdOferta());
 
@@ -74,7 +81,7 @@ public class OfertasAnaliticaServiceImpl implements OfertasAnaliticaService {
 			analiticaEntity.setNumComentariosNegativos(ofertasAnaliticaDto.getNumComentariosNegativos() == null ? analiticaEntity.getNumComentariosNegativos(): ofertasAnaliticaDto.getNumComentariosNegativos());
 			analiticaEntity.setNumCompartir(ofertasAnaliticaDto.getNumCompartir() == null ? analiticaEntity.getNumCompartir():ofertasAnaliticaDto.getNumCompartir());
 			analiticaEntity.setNumMegusta(ofertasAnaliticaDto.getNumMegusta() == null ? analiticaEntity.getNumMegusta() : ofertasAnaliticaDto.getNumMegusta()); 
-			analiticaEntity.setNumNogusta(ofertasAnaliticaDto.getNumNogusta() == null ? analiticaEntity.getNumNogusta() : analiticaEntity.getNumNogusta());
+			analiticaEntity.setNumNogusta(ofertasAnaliticaDto.getNumNogusta() == null ? analiticaEntity.getNumNogusta() : ofertasAnaliticaDto.getNumNogusta());
 			analiticaEntity.setNumVistas(ofertasAnaliticaDto.getNumVistas() == null ? analiticaEntity.getNumVistas(): ofertasAnaliticaDto.getNumVistas() );
 			analiticaEntity.setNumVisualizacionfotos(ofertasAnaliticaDto.getNumVisualizacionfotos() == null ? analiticaEntity.getNumVisualizacionfotos(): ofertasAnaliticaDto.getNumVisualizacionfotos());
 			analiticaEntity.setSexoFemenino(ofertasAnaliticaDto.getSexoFemenino() == null ? analiticaEntity.getSexoFemenino(): ofertasAnaliticaDto.getSexoFemenino());	

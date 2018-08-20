@@ -3,7 +3,13 @@
 cd hazloakki-service-ofertas-service
 gradle clean buildImage
 
+cd ../hazloakki-service-analitica
+./gradlew clean buildImage
+
 cd ../hazloakki-service-registry
+./gradlew clean buildImage
+
+cd ../hazloakki-service-gateway
 ./gradlew clean buildImage
 
 cd ../hazloakki-service-cuenta
@@ -18,8 +24,6 @@ cd ../hazloakki-service-login
 cd ../hazloakki-service-catalogos
 ./gradlew clean buildImage
 
-cd ../hazloakki-service-gateway
-./gradlew clean buildImage
 
 docker-compose up 
 docker-compose stop

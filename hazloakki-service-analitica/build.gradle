@@ -53,8 +53,8 @@ dependencies {
   runtime('org.postgresql:postgresql')
   compile('org.flywaydb:flyway-core')
   compile('de.codecentric:spring-boot-admin-starter-client') //spring boot ui
- // compile('org.springframework.cloud:spring-cloud-starter-eureka')
- // compile('org.springframework.cloud:spring-cloud-starter-hystrix')
+ 	compile('org.springframework.cloud:spring-cloud-starter-eureka')
+ compile('org.springframework.cloud:spring-cloud-starter-hystrix')
 }
 
 dependencyManagement {
