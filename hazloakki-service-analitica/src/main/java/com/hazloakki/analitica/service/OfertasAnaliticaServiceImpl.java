@@ -69,30 +69,18 @@ public class OfertasAnaliticaServiceImpl implements OfertasAnaliticaService {
 			return ofertasAnaliticaEntity;
 		} else {
 			log.info(">>>Se encontro datos de analitica de la oferta...actualizando");
-			analiticaEntity.setNumClick(
-					(analiticaEntity.getNumClick() == ofertasAnaliticaDto.getNumClick()) ? analiticaEntity.getNumClick()
-							: ofertasAnaliticaDto.getNumClick());
-
-			analiticaEntity
-					.setNumComentarios((analiticaEntity.getNumComentarios() == ofertasAnaliticaDto.getNumComentarios())
-							? analiticaEntity.getNumComentarios()
-							: ofertasAnaliticaDto.getNumComentarios());
-
-			analiticaEntity.setNumComentariosNegativos(
-					(analiticaEntity.getNumComentariosNegativos() == ofertasAnaliticaDto.getNumComentariosNegativos())
-							? analiticaEntity.getNumComentariosNegativos()
-							: ofertasAnaliticaDto.getNumComentariosNegativos());
-			
-			
-			analiticaEntity.setNumCompartir((analiticaEntity.getNumCompartir() == ofertasAnaliticaDto.getNumCompartir()) ? analiticaEntity.getNumCompartir() : ofertasAnaliticaDto.getNumCompartir());
-			analiticaEntity.setNumMegusta((ofertasAnaliticaDto.getNumMegusta()));
-			analiticaEntity.setNumNogusta(ofertasAnaliticaDto.getNumNogusta());
-			analiticaEntity.setNumVistas(ofertasAnaliticaDto.getNumVistas());
-			analiticaEntity.setNumVisualizacionfotos(ofertasAnaliticaDto.getNumVisualizacionfotos());
-			analiticaEntity.setSexoFemenino(ofertasAnaliticaDto.getSexoFemenino());
-			analiticaEntity.setSexoMasculino(ofertasAnaliticaDto.getSexoMasculino());
-			analiticaEntity.setUbicacionSegmentada(ofertasAnaliticaDto.getUbicacionSegmentada());
-
+			analiticaEntity.setNumClick( ofertasAnaliticaDto.getNumClick() == null ? analiticaEntity.getNumClick() :  ofertasAnaliticaDto.getNumClick());
+			analiticaEntity.setNumComentarios(ofertasAnaliticaDto.getNumComentarios() == null ?  analiticaEntity.getNumComentarios(): ofertasAnaliticaDto.getNumComentarios());
+			analiticaEntity.setNumComentariosNegativos(ofertasAnaliticaDto.getNumComentariosNegativos() == null ? analiticaEntity.getNumComentariosNegativos(): ofertasAnaliticaDto.getNumComentariosNegativos());
+			analiticaEntity.setNumCompartir(ofertasAnaliticaDto.getNumCompartir() == null ? analiticaEntity.getNumCompartir():ofertasAnaliticaDto.getNumCompartir());
+			analiticaEntity.setNumMegusta(ofertasAnaliticaDto.getNumMegusta() == null ? analiticaEntity.getNumMegusta() : ofertasAnaliticaDto.getNumMegusta()); 
+			analiticaEntity.setNumNogusta(ofertasAnaliticaDto.getNumNogusta() == null ? analiticaEntity.getNumNogusta() : analiticaEntity.getNumNogusta());
+			analiticaEntity.setNumVistas(ofertasAnaliticaDto.getNumVistas() == null ? analiticaEntity.getNumVistas(): ofertasAnaliticaDto.getNumVistas() );
+			analiticaEntity.setNumVisualizacionfotos(ofertasAnaliticaDto.getNumVisualizacionfotos() == null ? analiticaEntity.getNumVisualizacionfotos(): ofertasAnaliticaDto.getNumVisualizacionfotos());
+			analiticaEntity.setSexoFemenino(ofertasAnaliticaDto.getSexoFemenino() == null ? analiticaEntity.getSexoFemenino(): ofertasAnaliticaDto.getSexoFemenino());	
+			analiticaEntity.setSexoMasculino(ofertasAnaliticaDto.getSexoMasculino() == null ? analiticaEntity.getSexoMasculino(): ofertasAnaliticaDto.getSexoMasculino() );
+			analiticaEntity.setUbicacionSegmentada(ofertasAnaliticaDto.getUbicacionSegmentada() == null ?  analiticaEntity.getUbicacionSegmentada(): ofertasAnaliticaDto.getUbicacionSegmentada());
+					
 			ofertasAnaliticaRepository.save(analiticaEntity);
 		}
 		return analiticaEntity;
