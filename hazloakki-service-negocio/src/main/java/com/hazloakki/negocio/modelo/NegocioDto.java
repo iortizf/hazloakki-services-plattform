@@ -15,8 +15,6 @@ public class NegocioDto {
 	private String domicilio;
 	private Double latitud;
 	private Double longitud;
-	private Integer idMetodoPago;
-	private String tipoTarjetaCredito;
 	private boolean servicioDomicilio;
 	private boolean estacionamiento;
 	private boolean internet;
@@ -100,22 +98,6 @@ public class NegocioDto {
 
 	public void setLongitud(Double longitud) {
 		this.longitud = longitud;
-	}
-
-	public Integer getIdMetodoPago() {
-		return idMetodoPago;
-	}
-
-	public void setIdMetodoPago(Integer idMetodoPago) {
-		this.idMetodoPago = idMetodoPago;
-	}
-
-	public String getTipoTarjetaCredito() {
-		return tipoTarjetaCredito;
-	}
-
-	public void setTipoTarjetaCredito(String tipoTarjetaCredito) {
-		this.tipoTarjetaCredito = tipoTarjetaCredito;
 	}
 
 	public boolean isServicioDomicilio() {
@@ -213,7 +195,5 @@ public class NegocioDto {
 	public void setNumeroExterior(String numeroExterior) {
 		this.numeroExterior = numeroExterior;
 	}
-	
-	
 
 }
