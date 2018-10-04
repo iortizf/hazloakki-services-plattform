@@ -38,14 +38,13 @@ ext {
 
 
 jar {
-	baseName = 'business-ms'
+	baseName = 'negocio-microservice'
     version = ''
 }
 
-
 dependencies {
   compile('org.springframework.boot:spring-boot-starter-actuator')
-  compile('org.springframework.boot:spring-boot-starter-data-jpa')
+  //compile('org.springframework.boot:spring-boot-starter-data-jpa')
   compile('org.springframework.boot:spring-boot-starter-web')
   
   compile 'org.springframework.cloud:spring-cloud-starter-openfeign'
@@ -53,8 +52,13 @@ dependencies {
   testCompile('org.springframework.restdocs:spring-restdocs-mockmvc')
   runtime('org.postgresql:postgresql')
   compile('org.flywaydb:flyway-core')
-  compile('de.codecentric:spring-boot-admin-starter-client') //spring boot ui
+  //compile('de.codecentric:spring-boot-admin-starter-client') //spring boot ui
+  //compile('org.springframework.cloud:spring-cloud-starter-eureka')
+  //compile('org.springframework.cloud:spring-cloud-starter-hystrix')
+  compile('org.springframework.boot:spring-boot-starter-jdbc')
+  compile group: 'commons-dbcp', name: 'commons-dbcp', version: '1.2.2'
 }
+
 
 dependencyManagement {
   imports {
@@ -65,29 +69,59 @@ dependencyManagement {
 
 
 
-task createDockerfile(type: com.bmuschko.gradle.docker.tasks.image.Dockerfile){
+task createDockerfile(type: com.bmuschko.gradle.docker.tasks.image.Dockerfile) {
   destFile = project.file('build/libs/Dockerfile')
   from 'openjdk:8u171-jre-slim'
-  maintainer 'Israel Ortiz Feria "iortiz.feria@gmail.com"'
-  copyFile 'business-ms.jar', '/opt/business-ms.jar'
-  entryPoint "java"
-  defaultCommand '-jar', '/opt/business-ms.jar'
-  exposePort 8085  
+  maintainer 'jovaniac@gmail.com"'
+  copyFile 'start.sh', '/start.sh'
+  copyFile 'wait-for-it.sh', '/wait-for-it.sh'
+  copyFile 'negocio-microservice.jar', '/opt/negocio-microservice.jar'
+  instruction {"RUN sh -c 'chmod +x *.sh'"}  
+  exposePort 8086
+  //entryPoint "/wait-for-it.sh","postgres:5433",  "--", "/start.sh"
+  entryPoint "/start.sh"
+  
 }
 
 task buildImage(type: com.bmuschko.gradle.docker.tasks.image.DockerBuildImage) {
   dependsOn createDockerfile
   inputDir = createDockerfile.destFile.parentFile
-  tag = 'iortizf/business-ms:' + project.version.toLowerCase()
+  tag = 'jovaniac/negocio-microservice:' + project.version.toLowerCase()
+}
+
+
+/*************************************/
+task prepareFiles(type: Copy) {
+	from 'src/main/docker/app-docker/start.sh','src/main/docker/app-docker/wait-for-it.sh'
+	into 'build/libs/'
+}
+
+task moveDockerFile(type: Copy) {
+	from '/build/libs/Dockerfile', '/build/libs/negocio-microservice.jar'
+	into '/src/main/docker/app-docker'
+}
+
+task moveJarFile(type: Copy) {
+	from('/build/libs/')
+	into('/src/main/docker/app-docker/')
 }
 
 task pushImage(type: com.bmuschko.gradle.docker.tasks.image.DockerPushImage) {
   dependsOn buildImage
+  def dockerRegistryCredentials = new com.bmuschko.gradle.docker.DockerRegistryCredentials()
+  dockerRegistryCredentials.password = System.properties['""']
+  dockerRegistryCredentials.username = System.properties['""']
   imageName = buildImage.tag
+  registryCredentials = dockerRegistryCredentials
 }
+
 
 
 build.dependsOn createDockerfile
 
 /*************************************/
+buildImage.dependsOn prepareFiles
 createDockerfile.dependsOn bootRepackage
+prepareFiles.dependsOn moveDockerFile
+buildImage.dependsOn moveDockerFile
+

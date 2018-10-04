@@ -1,13 +1,14 @@
 package com.hazloakki.negocio.repository;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
+import java.util.List;
 
-import com.hazloakki.negocio.entity.NegocioMetodoPagoEntity;
-import com.hazloakki.negocio.entity.NegocioMetodoPagoKey;
+import com.hazloakki.negocio.modelo.MetodoPagoDto;
 
-@Repository
-public interface NegocioMetodoPagoRepository 
-					extends JpaRepository<NegocioMetodoPagoEntity, NegocioMetodoPagoKey> {
+public interface NegocioMetodoPagoRepository {
 
+	void guardar(String idNegocio, String idMetodoPago);
+
+	List<MetodoPagoDto> consultar(String idNegocio);
+
+	void eliminar(String idNegocio);
 }

@@ -1,0 +1,17 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: business-dep
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: business-app
+        tier: backend
+    spec:
+      containers:
+      - name: business
+        image: iortizf/business-ms:0.0.3-snapshot
+        ports:
+        - containerPort: 8086

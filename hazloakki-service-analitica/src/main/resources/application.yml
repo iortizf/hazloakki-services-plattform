@@ -1,11 +1,7 @@
-
 server.port: 8090
-
-instance.id: ${random.value}
----
 spring:
   application:
-    name: analitica-microservice
+    name: analytic-ms
   jpa:
     database: POSTGRESQL
     show-sql: true
@@ -13,37 +9,7 @@ spring:
       ddl-auto: update 
   datasource:
     platform: postgres
-    url: jdbc:postgresql://localhost:5433/hazloakki_analitica
+    url: jdbc:postgresql://analytic-db-svc/hazloakki_analitica
     username: admin
     password: admin
-    driverClassName: org.postgresql.Driver  
-
---- 
-eureka:
-  client:
-    serviceUrl:
-      defaultZone: http://127.0.0.1:8761/eureka/
-    fetchRegistry: true
-  instance:
-    hostname: localhost
-    prefer-ip-address: true #registra ip no hostname
-    leaseRenewalIntervalInSeconds: 1
-    leaseExpirationDurationInSeconds: 2
-    metadata-map:
-      instanceId: ${instance.id}
-    
-
-ribbon:
-  eureka:
-    enabled: true
-
-management:
-  security:
-    enabled: false #desactiva mecaniscos de actuator de spring
-
-security:
-  basic:
-    enabled: false
-    
-
-    
+    driverClassName: org.postgresql.Driver

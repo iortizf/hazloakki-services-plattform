@@ -1,0 +1,31 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: analytic-db-dep
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: analytic-db
+        tier: database
+    spec:
+      containers:
+      - name: analytic-db
+        image: postgres:9.6.1-alpine
+        env:
+        - name: POSTGRES_USER
+          value: admin
+        - name: POSTGRES_PASSWORD
+          value: admin
+        - name: POSTGRES_DB
+          value: hazloakki_analitica
+        ports:
+        - containerPort: 5432
+        volumeMounts:
+        - name: analytic-db-volume
+          mountPath: /var/lib/postgresql/data/analytic
+      volumes:
+        - name: analytic-db-volume
+          persistentVolumeClaim:
+            claimName: analytic-db-pvc

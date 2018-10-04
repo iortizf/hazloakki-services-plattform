@@ -1,0 +1,17 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: offer-dep
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: offer-app
+        tier: backend
+    spec:
+      containers:
+      - name: offer
+        image: iortizf/offer-ms:0.0.3-snapshot
+        ports:
+        - containerPort: 8089

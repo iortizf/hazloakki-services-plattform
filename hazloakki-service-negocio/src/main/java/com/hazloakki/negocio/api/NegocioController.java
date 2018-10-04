@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.hazloakki.negocio.entity.NegocioEntity;
 import com.hazloakki.negocio.modelo.NegocioDto;
 import com.hazloakki.negocio.service.NegocioService;
 import com.hazloakki.negocio.service.remotos.OfertaDto;
@@ -40,7 +39,7 @@ public class NegocioController {
 	 */
 	@GetMapping("/{id}")
 	public NegocioDto redNegocio(@PathVariable("id") String idNegocio) {
-		return cuentaService.obtenerNegocio(idNegocio).to();
+		return cuentaService.obtenerNegocio(idNegocio);
 	}
 	
 	
@@ -52,7 +51,8 @@ public class NegocioController {
 	@PostMapping
 	@ResponseStatus(CREATED)
 	public NegocioDto crearNegocio(@RequestBody NegocioDto negocioDto) {
-		return cuentaService.guardarNegocio(negocioDto).to();
+		return cuentaService.guardarNegocio(negocioDto);
+		
 	}
 	
 	/**Modificacion de un negocio
@@ -62,7 +62,7 @@ public class NegocioController {
 	 */
 	@PutMapping("/{id}")
 	public NegocioDto modificaNegocio(@PathVariable("id") String idNegocio,@RequestBody NegocioDto cuentaDto) {
-		return cuentaService.modificaNegocio(idNegocio, cuentaDto).to();
+		return cuentaService.modificaNegocio(idNegocio, cuentaDto);
 	}
 	
 	/**
@@ -73,6 +73,7 @@ public class NegocioController {
 	public void borrarNegocio(@PathVariable("id") String idNegocio) {
 		cuentaService.borrarNegocio(idNegocio);
 	}
+
 	
 	/*
 	 * Solicitud de servicios Remotos
@@ -85,7 +86,7 @@ public class NegocioController {
 	 * @return
 	 */
 	@GetMapping("/cuenta/{id}")
-	public List<NegocioEntity> readAllNegocios(@PathVariable("id") String idCuenta) {
+	public List<NegocioDto> readAllNegocios(@PathVariable("id") String idCuenta) {
 		return cuentaService.obtenerAllNegociosByCuenta(idCuenta);
 	}
 	

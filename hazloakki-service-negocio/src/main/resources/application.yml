@@ -1,7 +1,4 @@
 server.port: 8086
-
----
-    
 spring:
   application:
     name: business-ms
@@ -9,10 +6,10 @@ spring:
     database: POSTGRESQL
     show-sql: true
     hibernate:
-      ddl-auto: update 
+      ddl-auto: update
   datasource:
     platform: postgres
-    url: jdbc:postgresql://business-db-service/hazloakki_negocio
+    url: jdbc:postgresql://business-db-svc/hazloakki_negocio
     username: admin
     password: admin
     driverClassName: org.postgresql.Driver
