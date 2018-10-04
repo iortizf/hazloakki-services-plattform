@@ -2,7 +2,6 @@ package com.hazloakki.negocio.service;
 
 import java.util.List;
 
-import com.hazloakki.negocio.entity.NegocioEntity;
 import com.hazloakki.negocio.modelo.NegocioDto;
 /**
  * @author Jovani Arzate
@@ -13,15 +12,15 @@ import com.hazloakki.negocio.modelo.NegocioDto;
 import com.hazloakki.negocio.service.remotos.OfertaDto;
 public interface NegocioService {
 
-	NegocioEntity guardarNegocio(NegocioDto cuentaDto);
-	NegocioEntity obtenerNegocio(String idNegocio);
-	NegocioEntity modificaNegocio(String idNegocio,NegocioDto cuentaDto);
+	NegocioDto guardarNegocio(NegocioDto cuentaDto);
+	NegocioDto obtenerNegocio(String idNegocio);
+	NegocioDto modificaNegocio(String idNegocio,NegocioDto cuentaDto);
 	void borrarNegocio(String idNegocio);
 	
 	/*
 	 * Remotos
 	 */
-	List<NegocioEntity> obtenerAllNegociosByCuenta(String idCuenta);
+	List<NegocioDto> obtenerAllNegociosByCuenta(String idCuenta);
 	List<OfertaDto> obtenerAllOfertasByNegocio(String idNegocio);
 
 }

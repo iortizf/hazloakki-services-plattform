@@ -1,0 +1,31 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: account-db-dep
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: account-db
+        tier: database
+    spec:
+      containers:
+      - name: account-db
+        image: postgres:9.6.1-alpine
+        env:
+        - name: POSTGRES_USER
+          value: admin
+        - name: POSTGRES_PASSWORD
+          value: admin
+        - name: POSTGRES_DB
+          value: hazloakki_cuenta
+        ports:
+        - containerPort: 5432
+        volumeMounts:
+        - name: account-db-volume
+          mountPath: /var/lib/postgresql/data/account
+      volumes:
+        - name: account-db-volume
+          persistentVolumeClaim:
+            claimName: account-db-pvc

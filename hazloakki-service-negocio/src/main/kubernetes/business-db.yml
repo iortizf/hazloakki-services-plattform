@@ -1,0 +1,31 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: business-db-dep
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: business-db
+        tier: database
+    spec:
+      containers:
+      - name: business-db
+        image: postgres:9.6.1-alpine
+        env:
+        - name: POSTGRES_USER
+          value: admin
+        - name: POSTGRES_PASSWORD
+          value: admin
+        - name: POSTGRES_DB
+          value: hazloakki_negocio
+        ports:
+        - containerPort: 5432
+        volumeMounts:
+        - name: business-db-volume
+          mountPath: /var/lib/postgresql/data/business
+      volumes:
+        - name: business-db-volume
+          persistentVolumeClaim:
+            claimName: business-db-pvc
