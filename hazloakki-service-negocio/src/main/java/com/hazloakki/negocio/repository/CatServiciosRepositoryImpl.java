@@ -10,7 +10,7 @@ import com.hazloakki.negocio.persist.SpringJdbcDao;
 @Repository
 public class CatServiciosRepositoryImpl extends SpringJdbcDao implements CatServiciosRepository {
 
-	private String qrySelect = "SELECT * FROM cat_servicios";
+	private String qrySelect = "SELECT * FROM cat_servicios where estatus=?";
 
 	@Override
 	public List<ServiciosDto> findByEstatus(boolean estatus) {
