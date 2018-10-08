@@ -1,92 +1,79 @@
 buildscript {
-  ext {
-    springBootVersion = '1.5.10.RELEASE'
-  }
-  repositories {
-    jcenter()
-    mavenCentral()
-  }
-  dependencies {
-    classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-    classpath("org.asciidoctor:asciidoctor-gradle-plugin:1.5.3")
-    classpath 'com.bmuschko:gradle-docker-plugin:3.2.0'
-  }
+	ext {
+		springBootVersion = '2.0.4.RELEASE'
+	}
+	repositories {
+		jcenter()
+		mavenCentral()
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+		classpath 'com.bmuschko:gradle-docker-plugin:3.2.5'
+	}
 }
 
 apply plugin: 'java'
 apply plugin: 'eclipse'
-apply plugin: 'idea'
 apply plugin: 'org.springframework.boot'
-apply plugin: 'jacoco'
+apply plugin: 'io.spring.dependency-management'
 apply plugin: com.bmuschko.gradle.docker.DockerRemoteApiPlugin
 
 
 group = 'com.hazloakki.cuenta'
-version = '0.0.3-SNAPSHOT'
+version = '0.0.1-SNAPSHOT'
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 
 repositories {
-  mavenCentral()
+	jcenter()
+  	mavenCentral()
 }
 
 ext {
-  springBootAdminVersion = '1.5.7'
-  springCloudVersion = 'Edgware.SR2'
+  springCloudVersion = 'Finchley.SR1'
 }
 
 
-jar {
+bootJar {
 	baseName = 'account-ms'
     version = ''
 }
 
 dependencies {
-  compile('org.springframework.boot:spring-boot-starter-actuator')
   compile('org.springframework.boot:spring-boot-starter-data-jpa')
   compile('org.springframework.boot:spring-boot-starter-web')
   
-  compile 'org.springframework.cloud:spring-cloud-starter-openfeign'
+  compile('org.springframework.cloud:spring-cloud-starter-openfeign')
   testCompile('org.springframework.boot:spring-boot-starter-test')
-  testCompile('org.springframework.restdocs:spring-restdocs-mockmvc')
   runtime('org.postgresql:postgresql')
   compile('org.flywaydb:flyway-core')
-  compile('de.codecentric:spring-boot-admin-starter-client') //spring boot ui
 }
 
 dependencyManagement {
   imports {
-    mavenBom "de.codecentric:spring-boot-admin-dependencies:${springBootAdminVersion}"
     mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
   }
 }
-
 
 
 task createDockerfile(type: com.bmuschko.gradle.docker.tasks.image.Dockerfile){
   destFile = project.file('build/libs/Dockerfile')
   from 'openjdk:8u171-jre-slim'
   maintainer 'Israel Ortiz Feria "iortiz.feria@gmail.com"'
-  copyFile 'account-ms.jar', '/opt/account-ms.jar'
+  copyFile bootJar.baseName+'.jar', '/opt/'+bootJar.baseName+'.jar'
   entryPoint "java"
-  defaultCommand '-jar', '/opt/account-ms.jar'
-  exposePort 8085  
+  defaultCommand '-jar', '/opt/'+bootJar.baseName+'.jar'
+  exposePort 8085
 }
 
 task buildImage(type: com.bmuschko.gradle.docker.tasks.image.DockerBuildImage) {
   dependsOn createDockerfile
   inputDir = createDockerfile.destFile.parentFile
-  tag = 'iortizf/account-ms:' + project.version.toLowerCase()
+  tag = 'iortizf/'+bootJar.baseName+':' + project.version.toLowerCase()
 }
 
 task pushImage(type: com.bmuschko.gradle.docker.tasks.image.DockerPushImage) {
   dependsOn buildImage
   imageName = buildImage.tag
 }
-
-
-build.dependsOn createDockerfile
-
-/*************************************/
-createDockerfile.dependsOn bootRepackage

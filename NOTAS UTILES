@@ -1,0 +1,10 @@
+INSTALAR KONG CON HELM 
+
+helm install stable/kong --name kong-gateway \
+  --set=admin.type=LoadBalancer,proxy.type=LoadBalancer
+
+SI DICE FORBIDDEN HAY QUE EJECUTAR EL SIGUIENTE COMANDO
+
+kubectl create clusterrolebinding add-on-cluster-admin --clusterrole=cluster-admin --serviceaccount=kube-system:default
+
+LISTO YA PODEMOS INSTALAR KONG SIN PROBLEMAS.

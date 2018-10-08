@@ -12,6 +12,6 @@ spec:
     spec:
       containers:
       - name: catalog
-        image: iortizf/catalog-ms:0.0.3-snapshot
+        image: iortizf/catalog-ms:0.0.1-snapshot
         ports:
         - containerPort: 8088

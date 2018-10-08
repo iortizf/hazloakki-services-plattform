@@ -12,6 +12,6 @@ spec:
     spec:
       containers:
       - name: login
-        image: iortizf/login-ms:0.0.3-snapshot
+        image: iortizf/login-ms:0.0.1-snapshot
         ports:
         - containerPort: 8087

@@ -12,6 +12,6 @@ spec:
     spec:
       containers:
       - name: offer
-        image: iortizf/offer-ms:0.0.3-snapshot
+        image: iortizf/offer-ms:0.0.1-snapshot
         ports:
         - containerPort: 8089

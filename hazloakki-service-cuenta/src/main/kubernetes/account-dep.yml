@@ -12,6 +12,6 @@ spec:
     spec:
       containers:
       - name: account
-        image: iortizf/account-ms:0.0.3-snapshot
+        image: iortizf/account-ms:0.0.1-snapshot
         ports:
         - containerPort: 8085

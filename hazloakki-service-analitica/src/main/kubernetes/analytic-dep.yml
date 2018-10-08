@@ -12,6 +12,6 @@ spec:
     spec:
       containers:
       - name: analytic
-        image: iortizf/analytic-ms:0.0.3-snapshot
+        image: iortizf/analytic-ms:0.0.1-snapshot
         ports:
         - containerPort: 8090

@@ -20,6 +20,8 @@ spec:
           value: admin
         - name: POSTGRES_DB
           value: hazloakki_analitica
+        - name: PGDATA
+          value: /var/lib/postgresql/data/analytic
         ports:
         - containerPort: 5432
         volumeMounts:

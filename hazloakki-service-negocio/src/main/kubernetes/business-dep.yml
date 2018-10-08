@@ -12,6 +12,6 @@ spec:
     spec:
       containers:
       - name: business
-        image: iortizf/business-ms:0.0.3-snapshot
+        image: iortizf/business-ms:0.0.1-snapshot
         ports:
         - containerPort: 8086

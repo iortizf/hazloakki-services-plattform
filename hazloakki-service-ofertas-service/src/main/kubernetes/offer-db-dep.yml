@@ -1,17 +1,17 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: catalog-db-dep
+  name: offer-db-dep
 spec:
   replicas: 1
   template:
     metadata:
       labels:
-        app: catalog-db
+        app: offer-db
         tier: database
     spec:
       containers:
-      - name: catalog-db
+      - name: offer-db
         image: postgres:9.6.1-alpine
         env:
         - name: POSTGRES_USER
@@ -19,13 +19,15 @@ spec:
         - name: POSTGRES_PASSWORD
           value: admin
         - name: POSTGRES_DB
-          value: hazloakki_catalogos
+          value: hazloakki_ofertas
+        - name: PGDATA
+          value: /var/lib/postgresql/data/offer
         ports:
         - containerPort: 5432
         volumeMounts:
-        - name: catalog-db-volume
-          mountPath: /var/lib/postgresql/data/catalog
+        - name: offer-db-volume
+          mountPath: /var/lib/postgresql/data/offer
       volumes:
-        - name: catalog-db-volume
+        - name: offer-db-volume
           persistentVolumeClaim:
-            claimName: catalog-db-pvc
+            claimName: offer-db-pvc

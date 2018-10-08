@@ -20,6 +20,8 @@ spec:
           value: admin
         - name: POSTGRES_DB
           value: hazloakki_negocio
+        - name: PGDATA
+          value: /var/lib/postgresql/data/business
         ports:
         - containerPort: 5432
         volumeMounts:

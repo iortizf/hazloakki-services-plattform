@@ -1,17 +1,17 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: account-db-dep
+  name: catalog-db-dep
 spec:
   replicas: 1
   template:
     metadata:
       labels:
-        app: account-db
+        app: catalog-db
         tier: database
     spec:
       containers:
-      - name: account-db
+      - name: catalog-db
         image: postgres:9.6.1-alpine
         env:
         - name: POSTGRES_USER
@@ -19,13 +19,15 @@ spec:
         - name: POSTGRES_PASSWORD
           value: admin
         - name: POSTGRES_DB
-          value: hazloakki_cuenta
+          value: hazloakki_catalogos
+        - name: PGDATA
+          value: /var/lib/postgresql/data/catalog
         ports:
         - containerPort: 5432
         volumeMounts:
-        - name: account-db-volume
-          mountPath: /var/lib/postgresql/data/account
+        - name: catalog-db-volume
+          mountPath: /var/lib/postgresql/data/catalog
       volumes:
-        - name: account-db-volume
+        - name: catalog-db-volume
           persistentVolumeClaim:
-            claimName: account-db-pvc
+            claimName: catalog-db-pvc
