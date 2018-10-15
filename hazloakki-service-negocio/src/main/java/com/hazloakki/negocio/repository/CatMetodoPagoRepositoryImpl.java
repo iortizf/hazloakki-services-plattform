@@ -10,7 +10,7 @@ import com.hazloakki.negocio.persist.SpringJdbcDao;
 @Repository
 public class CatMetodoPagoRepositoryImpl extends SpringJdbcDao implements CatMetodoPagoRepository {
 
-	private String qrySelectAll = "SELECT * FROM cat_metodo_pago";
+	private String qrySelectAll = "SELECT * FROM cat_metodo_pago where estatus=?";
 
 	@Override
 	public List<MetodoPagoDto> findByEstatus(boolean estatus) {
