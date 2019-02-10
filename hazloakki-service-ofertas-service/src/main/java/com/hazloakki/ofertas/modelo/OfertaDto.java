@@ -1,5 +1,8 @@
 package com.hazloakki.ofertas.modelo;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author Jovani Arzate 
  * 2018-07-26 
@@ -22,8 +25,10 @@ public class OfertaDto {
 	private String genero;
 	private String territorio;
 	private String comportamiento;
-	private String acciones;
 	private String gustos;
+	private List<String> acciones = new ArrayList<>();
+	
+	
 	
 
 	public String getTitulo() {
@@ -122,20 +127,20 @@ public class OfertaDto {
 		this.comportamiento = comportamiento;
 	}
 
-	public String getAcciones() {
-		return acciones;
-	}
-
-	public void setAcciones(String acciones) {
-		this.acciones = acciones;
-	}
-
 	public String getGustos() {
 		return gustos;
 	}
 
 	public void setGustos(String gustos) {
 		this.gustos = gustos;
+	}
+
+	public List<String> getAcciones() {
+		return acciones;
+	}
+
+	public void setAcciones(List<String> acciones) {
+		this.acciones = acciones;
 	}
 
 	

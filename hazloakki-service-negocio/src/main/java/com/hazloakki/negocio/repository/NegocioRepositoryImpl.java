@@ -21,7 +21,7 @@ public class NegocioRepositoryImpl extends SpringJdbcDao implements NegocioRepos
 
 	private String qryUpdateNegocio = "UPDATE negocio set nombre = ?, id_categoria = ?, email = ?, descripcion = ?,"
 			+ " telefono = ?, domicilio = ?, latitud = ?, longitud = ?,  estatus = ?, codigo_postal = ?,"
-			+ "  delegacion = ?, colonia = ?, calle = ? , numero_exterior = ?,  horario = ? , responsable = ? WHERE ID_NEGOCIO = ?";
+			+ "  delegacion = ?, colonia = ?, calle = ? , numero_exterior = ?,  horario = ? , responsable = ? , id_cuenta = ? WHERE id_negocio = ?";
 
 	private String qryDeleteNegocio = "DELETE FROM negocio WHERE ID_NEGOCIO = ?";
 

@@ -2,7 +2,6 @@ package com.hazloakki.ofertas.service;
 
 import java.util.List;
 
-import com.hazloakki.ofertas.entity.OfertaEntity;
 import com.hazloakki.ofertas.modelo.OfertaDto;
 
 /**
@@ -11,10 +10,10 @@ import com.hazloakki.ofertas.modelo.OfertaDto;
  */
 public interface OfertasService {
 
-	OfertaEntity guardarOferta(OfertaDto cuentaDto);
-	OfertaEntity obtenerOfertaByNegocio(String idNegocio);
-	OfertaEntity modificarOferta(String idCuenta, OfertaDto cuentaDto);
-	void borrarOferta(String idCuenta);
-	List<OfertaDto> obtenerOfertas(String idNegocio);
+	OfertaDto guardarOferta(OfertaDto ofertaDto);
+	List<OfertaDto> obtenerOfertasByIdNegocio(String idNegocio);
+	OfertaDto modificarOferta(String idOferta, OfertaDto ofertaDto);
+	void borrarOferta(String idOferta);
+	OfertaDto obtenerOferta(String idOferta);
 
 }

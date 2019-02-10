@@ -95,4 +95,11 @@ INSERT INTO cat_categoria_negocios (id_categoria,nombre,descripcion,estatus,fech
 INSERT INTO cat_categoria_negocios (id_categoria,nombre,descripcion,estatus,fecha) VALUES (2,'hotel','hotel 5 estrellas',true,'2018-07-07');
 
 
+CREATE TABLE negocios_acciones(
+	 id_negocio VARCHAR(255),
+	 id_accion VARCHAR(255) ,
+	 PRIMARY KEY(id_negocio, id_accion),
+	 FOREIGN KEY (id_negocio) REFERENCES negocio (id_negocio)
+);
+
 

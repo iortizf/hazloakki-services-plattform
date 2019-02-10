@@ -11,6 +11,7 @@ import com.hazloakki.negocio.modelo.MetodoPagoDto;
 import com.hazloakki.negocio.modelo.NegocioDto;
 import com.hazloakki.negocio.modelo.ServiciosDto;
 import com.hazloakki.negocio.modelo.TipoTarjetaDto;
+import com.hazloakki.negocio.repository.NegocioAccionesRepository;
 import com.hazloakki.negocio.repository.NegocioMetodoPagoRepository;
 import com.hazloakki.negocio.repository.NegocioRepository;
 import com.hazloakki.negocio.repository.NegocioTarjetasPagoRepository;
@@ -23,6 +24,8 @@ import com.hazloakki.negocio.service.remotos.OfertaDto;
  */
 @Service
 public class NegocioServiceImpl implements NegocioService {
+	
+	private static String METHOD_OF_PAYMENT_CARD_ID = "4";
 
 	@Autowired
 	private NegocioRepository negocioRepository;
@@ -34,6 +37,8 @@ public class NegocioServiceImpl implements NegocioService {
 	private NegocioMetodoPagoRepository negocioMetodoPagoRepository;
 	@Autowired
 	private NegocioTarjetasPagoRepository negocioTarjetasPagoRepository;
+	@Autowired
+	private NegocioAccionesRepository negocioAccionesRepository;
 
 	@Transactional
 	@Override
@@ -44,22 +49,17 @@ public class NegocioServiceImpl implements NegocioService {
 			/*
 			 * Servicios por negocio
 			 */
-			for (ServiciosDto serviciosDto : negocioDto.getServiciosList()) {
-				negocioServiciosRepository.guardar(idNegocio, serviciosDto.getId());
-			}
+			negocioDto.getServiciosList().forEach( servicio -> negocioServiciosRepository.guardar(idNegocio, servicio.getId()));
 			/*
 			 * Metodos de pago por negocio
 			 */
-			for (MetodoPagoDto metodoPago : negocioDto.getMetodoPagoList()) {
-				negocioMetodoPagoRepository.guardar(idNegocio, metodoPago.getId());
-			}
+			negocioDto.getMetodoPagoList().forEach(metodo -> negocioMetodoPagoRepository.guardar(idNegocio, metodo.getId()));
 			/*
 			 * Tipos de tarjeta por negocio
 			 */
-			for (TipoTarjetaDto tipoTarjetaDto : negocioDto.getTipoTarjetaList()) {
-				negocioTarjetasPagoRepository.guardar(idNegocio, tipoTarjetaDto.getId());
-			}
-
+			negocioDto.getTipoTarjetaList().forEach(ttarjeta -> negocioTarjetasPagoRepository.guardar(idNegocio, ttarjeta.getId()));
+			//Acciones por negocio
+			negocioDto.getAcciones().forEach(idAccion -> negocioAccionesRepository.guardar(idNegocio, idAccion));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -79,10 +79,12 @@ public class NegocioServiceImpl implements NegocioService {
 		List<ServiciosDto> dataServiciosNegocio = negocioServiciosRepository.findServicios(idNegocio);
 		List<MetodoPagoDto> dataMetodosPagoNegocio = negocioMetodoPagoRepository.consultar(idNegocio);
 		List<TipoTarjetaDto> dataTipoTarjetaNEgocio = negocioTarjetasPagoRepository.findByIdNegocio(idNegocio);
+		List<String> acciones = negocioAccionesRepository.acciones(idNegocio);
 
 		negocioDto.setServiciosList(dataServiciosNegocio);
 		negocioDto.setMetodoPagoList(dataMetodosPagoNegocio);
 		negocioDto.setTipoTarjetaList(dataTipoTarjetaNEgocio);
+		negocioDto.setAcciones(acciones);
 
 		return negocioDto;
 	}
@@ -97,25 +99,24 @@ public class NegocioServiceImpl implements NegocioService {
 			throw new NegocioException("El negocio seleccionado no esta registrado : " + idNegocio, idNegocio);
 		}
 		negocioRepository.actualizarByIdNegocio(idNegocio, negocio);
-
-		/*
-		 * Servicios por negocio
-		 */
-		for (ServiciosDto serviciosDto : negocio.getServiciosList()) {
-			negocioServiciosRepository.guardar(idNegocio, serviciosDto.getId());
-		}
-		/*
-		 * Metodos de pago por negocio
-		 */
-		for (MetodoPagoDto metodoPago : negocio.getMetodoPagoList()) {
-			negocioMetodoPagoRepository.guardar(idNegocio, metodoPago.getId());
-		}
-		/*
-		 * Tipos de tarjeta por negocio
-		 */
-		for (TipoTarjetaDto tipoTarjetaDto : negocio.getTipoTarjetaList()) {
-			negocioTarjetasPagoRepository.guardar(idNegocio, tipoTarjetaDto.getId());
-		}
+		
+		negocioServiciosRepository.eliminar(idNegocio);
+		negocioMetodoPagoRepository.eliminar(idNegocio);
+		negocioTarjetasPagoRepository.eliminar(idNegocio);
+		negocioAccionesRepository.eliminar(idNegocio);
+		
+		//Servicios por negocio
+		negocio.getServiciosList().forEach(svc -> negocioServiciosRepository.guardar(idNegocio, svc.getId()));
+		//Metodos de pago por negocio
+		negocio.getMetodoPagoList().forEach(mp -> {
+			negocioMetodoPagoRepository.guardar(idNegocio, mp.getId());
+			if(mp.getId().equals(METHOD_OF_PAYMENT_CARD_ID)) {
+				//Tipos de tarjeta por negocio
+				negocio.getTipoTarjetaList().forEach(tt -> negocioTarjetasPagoRepository.guardar(idNegocio, tt.getId()));
+			}
+		});			
+		
+		negocio.getAcciones().forEach(idAccion -> negocioAccionesRepository.guardar(idNegocio, idAccion));
 
 		return obtenerNegocio(idNegocio);
 	}
@@ -133,6 +134,7 @@ public class NegocioServiceImpl implements NegocioService {
 		negocioServiciosRepository.eliminar(idNegocio);
 		negocioMetodoPagoRepository.eliminar(idNegocio);
 		negocioTarjetasPagoRepository.eliminar(idNegocio);
+		negocioAccionesRepository.eliminar(idNegocio);
 		
 		negocioRepository.eliminarByIdNegocio(idNegocio);
 

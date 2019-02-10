@@ -31,16 +31,17 @@ public class OfertaEntity {
 	private String idNegocio;
 	private boolean estatus;
 
-	public static OfertaEntity from(OfertaDto cuentaDto) {
+	public static OfertaEntity from(OfertaDto ofertaDto) {
 
 		OfertaEntity cuentaEntity = new OfertaEntity();
-		cuentaEntity.setTitulo(cuentaDto.getTitulo());
-		cuentaEntity.setMensaje(cuentaDto.getMensaje());
-		cuentaEntity.setDuracion(cuentaDto.getDuracion());
-		cuentaEntity.setImagenes(cuentaDto.getImagenes());
-		cuentaEntity.setEstatus(cuentaDto.isEstatus());
-		cuentaEntity.setFecha(cuentaDto.getFecha());
-		cuentaEntity.setIdNegocio(cuentaDto.getIdNegocio());
+		cuentaEntity.setId(ofertaDto.getId());
+		cuentaEntity.setTitulo(ofertaDto.getTitulo());
+		cuentaEntity.setMensaje(ofertaDto.getMensaje());
+		cuentaEntity.setDuracion(ofertaDto.getDuracion());
+		cuentaEntity.setImagenes(ofertaDto.getImagenes());
+		cuentaEntity.setEstatus(ofertaDto.isEstatus());
+		cuentaEntity.setFecha(ofertaDto.getFecha());
+		cuentaEntity.setIdNegocio(ofertaDto.getIdNegocio());
 
 		return cuentaEntity;
 	}

@@ -15,7 +15,7 @@ public class NegocioTarjetasPagoRepositoryImpl extends SpringJdbcDao implements 
 	private String qrySelect = "SELECT * FROM negocios_tarjetas a , cat_tipo_tarjeta b "
 			+ " WHERE a.id_tarjeta = b.id"
 			+ " AND ID_NEGOCIO = ?";
-	private String qryDelete = "DELETE FROM negocios_tarjetas WHERE ID_NEGOCIO = ?";
+	private String qryDelete = "DELETE FROM negocios_tarjetas WHERE id_negocio = ?";
 
 	@Override
 	public void guardar(String idNegocio, String idTipoTarjetaPago) {

@@ -1,0 +1,17 @@
+server.port: 8091
+    
+spring:
+  application:
+    name: acciones-microservice
+  jpa:
+    database: POSTGRESQL
+    show-sql: true
+    hibernate:
+      ddl-auto: update 
+  datasource:
+    platform: postgres
+    url: jdbc:postgresql://localhost:5432/hazloakki_acciones
+    username: admin
+    password: admin
+    driverClassName: org.postgresql.Driver 
+    

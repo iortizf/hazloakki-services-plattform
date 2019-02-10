@@ -7,9 +7,11 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -32,22 +34,30 @@ public class OfertasController {
 	@PostMapping
 	@ResponseStatus(CREATED)
 	public OfertaDto createOferta(@Valid @RequestBody OfertaDto ofertaDto) {
-		return ofertasService.guardarOferta(ofertaDto).to();
+		return ofertasService.guardarOferta(ofertaDto);
 	}
 	
-	@GetMapping("/{id}/{idNegocio}")
-	public OfertaDto obtenerOferta(@PathVariable("id") String idOferta,@PathVariable("idNegocio") String idNegocio) {
-		return ofertasService.obtenerOfertaByNegocio(idOferta).to();
+	@GetMapping("/{idOferta}")
+	public OfertaDto obtenerOferta(@PathVariable("idOferta") String idOferta) {
+		return ofertasService.obtenerOferta(idOferta);
 	}
 	
-	/*
-	 * Servicios remotos
-	 */
 	
-	@GetMapping("/negocios/{id}")
-	public List<OfertaDto> obtenerOfertas(@PathVariable("id")String idNegocio){
+	@GetMapping("/negocios/{idNegocio}")
+	public List<OfertaDto> obtenerOfertasByNegocio(@PathVariable("idNegocio")String idNegocio){
 		
-		return ofertasService.obtenerOfertas(idNegocio);
+		return ofertasService.obtenerOfertasByIdNegocio(idNegocio);
+	}
+	
+	@PutMapping("/{idOferta}")
+	public OfertaDto modificaNegocio(@PathVariable("idOferta") String idOferta, 
+			@RequestBody OfertaDto ofertaDto) {
+		return ofertasService.modificarOferta(idOferta, ofertaDto);
+	}
+	
+	@DeleteMapping("/{idOferta}")
+	public void borrarOferta(@PathVariable("idOferta") String idOferta) {
+		ofertasService.borrarOferta(idOferta);
 	}
 
 	

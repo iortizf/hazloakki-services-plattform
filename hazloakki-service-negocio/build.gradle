@@ -20,7 +20,7 @@ apply plugin: com.bmuschko.gradle.docker.DockerRemoteApiPlugin
 
 
 group = 'com.hazloakki.negocio'
-version = '0.0.1-SNAPSHOT'
+version = '0.0.2-SNAPSHOT'
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
@@ -48,12 +48,14 @@ dependencies {
   compile('org.flywaydb:flyway-core')
   compile('org.springframework.boot:spring-boot-starter-jdbc')
   compile group: 'commons-dbcp', name: 'commons-dbcp', version: '1.2.2'
+  compile 'com.amazonaws:aws-java-sdk-s3'
 }
 
 
 dependencyManagement {
   imports {
     mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+    mavenBom 'com.amazonaws:aws-java-sdk-bom:1.11.228'
   }
 }
 

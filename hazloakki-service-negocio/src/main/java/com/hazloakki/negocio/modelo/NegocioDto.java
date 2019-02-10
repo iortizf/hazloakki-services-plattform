@@ -30,6 +30,8 @@ public class NegocioDto {
 	private List<ServiciosDto> serviciosList = new ArrayList<>();
 	private List<MetodoPagoDto> metodoPagoList = new ArrayList<>();
 	private List<TipoTarjetaDto> tipoTarjetaList = new ArrayList<>();
+	private List<String> acciones = new ArrayList<>();
+	
 	public String getIdNegocio() {
 		return idNegocio;
 	}
@@ -156,6 +158,13 @@ public class NegocioDto {
 	public void setTipoTarjetaList(List<TipoTarjetaDto> tipoTarjetaList) {
 		this.tipoTarjetaList = tipoTarjetaList;
 	}
-
+	public List<String> getAcciones() {
+		return acciones;
+	}
+	public void setAcciones(List<String> acciones) {
+		this.acciones = acciones;
+	}
+	
+	
 	
 }

@@ -4,28 +4,27 @@ import javax.sql.DataSource;
 
 import org.apache.commons.dbcp.BasicDataSource;
 import org.flywaydb.core.Flyway;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
-import org.springframework.core.env.Environment;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import com.amazonaws.auth.AWSStaticCredentialsProvider;
+import com.amazonaws.auth.BasicAWSCredentials;
+import com.amazonaws.regions.Regions;
+import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.AmazonS3ClientBuilder;
+
 @Configuration
 @ComponentScan
 @EnableTransactionManagement
-//@PropertySource(value = { "classpath:application.properties" })
-@PropertySource("classpath:application.properties")
 public class AppConfig {
-	@Autowired
-	private Environment env;
-
+	
 	@Value("${init-db:false}")
 	private String initDatabase;
 
@@ -57,22 +56,30 @@ public class AppConfig {
 	public DataSource dataSource() {
 		BasicDataSource dataSource = new BasicDataSource();
 		dataSource.setDriverClassName("org.postgresql.Driver");
-		dataSource.setUrl("jdbc:postgresql://business-db-svc/hazloakki_negocio");
+		dataSource.setUrl("jdbc:postgresql://localhost:32768/hazloakki_negocio");
 		dataSource.setUsername("admin");
 		dataSource.setPassword("admin");
 		return dataSource;
 	}
-
-	// @Bean
-	// public DataSourceInitializer dataSourceInitializer(DataSource dataSource)
-	// {
-	// DataSourceInitializer dataSourceInitializer = new DataSourceInitializer();
-	// dataSourceInitializer.setDataSource(dataSource);
-	// ResourceDatabasePopulator databasePopulator = new
-	// ResourceDatabasePopulator();
-	// databasePopulator.addScript(new ClassPathResource("data.sql"));
-	// dataSourceInitializer.setDatabasePopulator(databasePopulator);
-	// dataSourceInitializer.setEnabled(Boolean.parseBoolean(initDatabase));
-	// return dataSourceInitializer;
-	// }
+	
+	@Value("${hazloakki.aws.access_key_id}")
+	private String awsId;
+ 
+	@Value("${hazloakki.aws.secret_access_key}")
+	private String awsKey;
+	
+	@Value("${hazloakki.s3.region}")
+	private String region;
+ 
+	@Bean
+	public AmazonS3 s3client() {
+		
+		BasicAWSCredentials awsCreds = new BasicAWSCredentials(awsId, awsKey);
+		AmazonS3 s3Client = AmazonS3ClientBuilder.standard()
+								.withRegion(Regions.fromName(region))
+		                        .withCredentials(new AWSStaticCredentialsProvider(awsCreds))
+		                        .build();
+		
+		return s3Client;
+	}
 }

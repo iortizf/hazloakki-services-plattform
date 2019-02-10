@@ -16,7 +16,7 @@ public class ServiciosNegocioRepositoryImpl extends SpringJdbcDao implements Ser
 			+ " and a.id_negocio = ?";
 
 	private String qryUpdateServicio = "UPDATE negocios_servicios SET id_servicio=?";
-	private String qryDelete = "DELETE FROM negocios_servicios WHERE ID_NEGOCIO=?";
+	private String qryDelete = "DELETE FROM negocios_servicios WHERE id_negocio=?";
 
 	@Override
 	public void guardar(String idNegocio, String idServicio) {
