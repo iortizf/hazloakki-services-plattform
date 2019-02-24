@@ -1,18 +1,12 @@
-server.port: 8089   
+server.port: 8089
 spring:
-  application:
-    name: offer-ms
-  jpa:
-    database: POSTGRESQL
-    show-sql: true
-    hibernate:
-      ddl-auto: update 
-  datasource:
-    platform: postgres
-    url: jdbc:postgresql://localhost:5432/hazloakki_ofertas
-    username: admin
-    password: admin
-    driverClassName: org.postgresql.Driver
+  data:
+    mongodb:
+      database: hazloakki_ofertas
+      username: admin
+      password: admin
+      port: 27017
+      host: localhost
     
 hazloakki.aws.access_key_id: xxxx
 hazloakki.aws.secret_access_key: xxxx

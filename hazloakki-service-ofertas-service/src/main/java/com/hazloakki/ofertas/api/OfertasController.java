@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.hazloakki.ofertas.modelo.OfertaDto;
-import com.hazloakki.ofertas.service.OfertasService;
+import com.hazloakki.ofertas.service.OfertaService;
 
 /**
  * @author Jovani Arzate 2018-07-25 HazloAkki para Empresas v.1
@@ -29,35 +29,35 @@ import com.hazloakki.ofertas.service.OfertasService;
 public class OfertasController {
 
 	@Autowired
-	private OfertasService ofertasService;
+	private OfertaService ofertaService;
 
 	@PostMapping
 	@ResponseStatus(CREATED)
 	public OfertaDto createOferta(@Valid @RequestBody OfertaDto ofertaDto) {
-		return ofertasService.guardarOferta(ofertaDto);
+		return ofertaService.guardar(ofertaDto);
 	}
 	
 	@GetMapping("/{idOferta}")
 	public OfertaDto obtenerOferta(@PathVariable("idOferta") String idOferta) {
-		return ofertasService.obtenerOferta(idOferta);
+		return ofertaService.obtenerById(idOferta);
 	}
 	
 	
 	@GetMapping("/negocios/{idNegocio}")
 	public List<OfertaDto> obtenerOfertasByNegocio(@PathVariable("idNegocio")String idNegocio){
 		
-		return ofertasService.obtenerOfertasByIdNegocio(idNegocio);
+		return ofertaService.obtenerByIdNegocio(idNegocio);
 	}
 	
 	@PutMapping("/{idOferta}")
-	public OfertaDto modificaNegocio(@PathVariable("idOferta") String idOferta, 
+	public void modificaNegocio(@PathVariable("idOferta") String idOferta, 
 			@RequestBody OfertaDto ofertaDto) {
-		return ofertasService.modificarOferta(idOferta, ofertaDto);
+		ofertaService.modificar(idOferta, ofertaDto);
 	}
 	
 	@DeleteMapping("/{idOferta}")
 	public void borrarOferta(@PathVariable("idOferta") String idOferta) {
-		ofertasService.borrarOferta(idOferta);
+		ofertaService.borrar(idOferta);
 	}
 
 	

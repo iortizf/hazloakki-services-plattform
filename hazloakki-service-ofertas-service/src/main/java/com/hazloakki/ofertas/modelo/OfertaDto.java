@@ -1,6 +1,7 @@
 package com.hazloakki.ofertas.modelo;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -11,137 +12,72 @@ import java.util.List;
  */
 public class OfertaDto {
 
-	private String id;
-	private String titulo;
-	private String mensaje;
-	private String imagenes;
-	private String fecha;
-	private String duracion;
+	private String idOferta;
 	private String idNegocio;
-	private boolean estatus;
-	
-	
-	private int edad;
-	private String genero;
-	private String territorio;
-	private String comportamiento;
-	private String gustos;
+	private String titulo;
+	private String descripcion;
+	private Date fechaAlta;
+	private Date fechaModificacion;
+	private Integer estatus;	
+	private Configuracion configuracion;
 	private List<String> acciones = new ArrayList<>();
 	
-	
-	
-
-	public String getTitulo() {
-		return titulo;
+	public String getIdOferta() {
+		return idOferta;
 	}
-
-	public void setTitulo(String titulo) {
-		this.titulo = titulo;
+	public void setIdOferta(String idOferta) {
+		this.idOferta = idOferta;
 	}
-
-	public String getMensaje() {
-		return mensaje;
-	}
-
-	public void setMensaje(String mensaje) {
-		this.mensaje = mensaje;
-	}
-
-	public String getImagenes() {
-		return imagenes;
-	}
-
-	public void setImagenes(String imagenes) {
-		this.imagenes = imagenes;
-	}
-
-	public String getFecha() {
-		return fecha;
-	}
-
-	public void setFecha(String fecha) {
-		this.fecha = fecha;
-	}
-
-	public String getDuracion() {
-		return duracion;
-	}
-
-	public void setDuracion(String duracion) {
-		this.duracion = duracion;
-	}
-
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
-	}
-
 	public String getIdNegocio() {
 		return idNegocio;
 	}
-
 	public void setIdNegocio(String idNegocio) {
 		this.idNegocio = idNegocio;
 	}
-
-	public boolean isEstatus() {
+	public String getTitulo() {
+		return titulo;
+	}
+	public void setTitulo(String titulo) {
+		this.titulo = titulo;
+	}
+	public String getDescripcion() {
+		return descripcion;
+	}
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
+	}
+	public Date getFechaAlta() {
+		return fechaAlta;
+	}
+	public void setFechaAlta(Date fechaAlta) {
+		this.fechaAlta = fechaAlta;
+	}
+	public Date getFechaModificacion() {
+		return fechaModificacion;
+	}
+	public void setFechaModificacion(Date fechaModificacion) {
+		this.fechaModificacion = fechaModificacion;
+	}
+	public Integer getEstatus() {
 		return estatus;
 	}
-
-	public void setEstatus(boolean estatus) {
+	public void setEstatus(Integer estatus) {
 		this.estatus = estatus;
 	}
-
-	public int getEdad() {
-		return edad;
+	
+	public Configuracion getConfiguracion() {
+		return configuracion;
 	}
-
-	public void setEdad(int edad) {
-		this.edad = edad;
+	public void setConfiguracion(Configuracion configuracion) {
+		this.configuracion = configuracion;
 	}
-
-	public String getGenero() {
-		return genero;
-	}
-
-	public void setGenero(String genero) {
-		this.genero = genero;
-	}
-
-	public String getTerritorio() {
-		return territorio;
-	}
-
-	public void setTerritorio(String territorio) {
-		this.territorio = territorio;
-	}
-
-	public String getComportamiento() {
-		return comportamiento;
-	}
-
-	public void setComportamiento(String comportamiento) {
-		this.comportamiento = comportamiento;
-	}
-
-	public String getGustos() {
-		return gustos;
-	}
-
-	public void setGustos(String gustos) {
-		this.gustos = gustos;
-	}
-
 	public List<String> getAcciones() {
 		return acciones;
 	}
-
 	public void setAcciones(List<String> acciones) {
 		this.acciones = acciones;
 	}
-
+	
+	
 	
 }
