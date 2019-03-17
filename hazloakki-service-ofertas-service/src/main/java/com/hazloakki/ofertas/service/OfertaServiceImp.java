@@ -1,12 +1,14 @@
 package com.hazloakki.ofertas.service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.hazloakki.ofertas.api.OfertasException;
 import com.hazloakki.ofertas.modelo.Configuracion;
 import com.hazloakki.ofertas.modelo.ConfiguracionDto;
 import com.hazloakki.ofertas.modelo.Oferta;
@@ -43,29 +45,55 @@ public class OfertaServiceImp implements OfertaService {
 	@Override
 	public void borrar(String id) {
 		ofertaRepository.eliminar(id);
-
 	}
 
 	@Override
 	public OfertaDto obtenerById(String id) {
-		return ofertaRepository.obtenerById(id).to();
+		Oferta oferta = ofertaRepository.obtenerById(id);
+		if(oferta==null)
+			throw new OfertasException("No existe la oferta "+id, id);
+		
+		return oferta.to();
 	}
 
 	@Override
 	public ConfiguracionDto obtenerConfig(String id) {
-		ConfiguracionDto configDto = ofertaRepository.obtenerConfig(id).to();
+		Configuracion config = ofertaRepository.obtenerConfig(id);
+		if(config == null)
+			throw new OfertasException("No existe la oferta "+id, id);
+				
+		ConfiguracionDto configDto = config.to();
 		configDto.setIdOferta(id);
 		return configDto;
 	}
 
 	@Override
-	public ConfiguracionDto guardarConfig(String id, ConfiguracionDto configDto) {		
-		return ofertaRepository.guardarConfig(id, Configuracion.from(configDto)).to();
+	public ConfiguracionDto guardarConfig(String id, ConfiguracionDto configDto) {	
+		Configuracion config = ofertaRepository.guardarConfig(id, Configuracion.from(configDto));
+		if(config == null)
+			throw new OfertasException("No existe la oferta "+id, id);
+		
+		return config.to();
 	}
 
 	@Override
 	public void modificarConfig(String id, ConfiguracionDto configDto) {
-		ofertaRepository.guardarConfig(id, Configuracion.from(configDto));		
+		Configuracion config = ofertaRepository.guardarConfig(id, Configuracion.from(configDto));	
+		if(config == null)
+			throw new OfertasException("No existe la oferta "+id, id);
+	}
+
+	@Override
+	public void modificarEstatus(String id,Integer idEstatus) {
+		Oferta oferta = ofertaRepository.obtenerById(id);
+		if(oferta == null)
+			throw new OfertasException("No existe la oferta "+id, id);
+		
+		Configuracion config = oferta.getConfig();
+		config.setIdEstatus(idEstatus);
+		config.setFechaModificacion(new Date());
+		oferta.setConfig(config);
+		ofertaRepository.modificar(oferta);
 	}
 
 }

@@ -7,7 +7,7 @@ import java.util.List;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document
+@Document(collection="oferta")
 public class Oferta {
 	
 	@Id
@@ -17,7 +17,6 @@ public class Oferta {
 	private String descripcion;
 	private Date fechaAlta;
 	private Date fechaModificacion;
-	private Integer estatus;
 	private Configuracion config;
 	private List<String> acciones = new ArrayList<>();
 	
@@ -25,11 +24,10 @@ public class Oferta {
 		
 		Oferta oferta = new Oferta();
 		oferta.setId(ofertaDto.getIdOferta());
-		oferta.setConfig(ofertaDto.getConfiguracion());
+		oferta.setConfig(Configuracion.from(ofertaDto.getConfiguracion()));
 		oferta.setTitulo(ofertaDto.getTitulo());
 		oferta.setDescripcion(ofertaDto.getDescripcion());
 		oferta.setIdNegocio(ofertaDto.getIdNegocio());
-		oferta.setEstatus(ofertaDto.getEstatus());
 		oferta.setAcciones(ofertaDto.getAcciones());
 		if(oferta.getId()!=null) {
 			oferta.setFechaModificacion(new Date());
@@ -46,11 +44,10 @@ public class Oferta {
 		
 		OfertaDto ofertaDto = new OfertaDto();
 		ofertaDto.setIdOferta(getId());
-		ofertaDto.setConfiguracion(getConfig());
+		ofertaDto.setConfiguracion(getConfig().to());
 		ofertaDto.setTitulo(getTitulo());
 		ofertaDto.setDescripcion(getDescripcion());
 		ofertaDto.setIdNegocio(getIdNegocio());
-		ofertaDto.setEstatus(getEstatus());
 		ofertaDto.setAcciones(getAcciones());
 		ofertaDto.setFechaAlta(getFechaAlta());
 		ofertaDto.setFechaModificacion(getFechaModificacion());
@@ -93,14 +90,7 @@ public class Oferta {
 	}
 	public void setFechaModificacion(Date fechaModificacion) {
 		this.fechaModificacion = fechaModificacion;
-	}
-	public Integer getEstatus() {
-		return estatus;
-	}
-	public void setEstatus(Integer estatus) {
-		this.estatus = estatus;
-	}
-	
+	}	
 	public Configuracion getConfig() {
 		return config;
 	}

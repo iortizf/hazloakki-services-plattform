@@ -19,5 +19,6 @@ public interface OfertaService {
 	ConfiguracionDto obtenerConfig(String id);
 	ConfiguracionDto guardarConfig(String id, ConfiguracionDto config);
 	void modificarConfig(String id, ConfiguracionDto config);
+	void modificarEstatus(String id, Integer idEstatus);
 
 }

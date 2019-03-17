@@ -18,8 +18,7 @@ public class OfertaDto {
 	private String descripcion;
 	private Date fechaAlta;
 	private Date fechaModificacion;
-	private Integer estatus;	
-	private Configuracion configuracion;
+	private ConfiguracionDto configuracion;
 	private List<String> acciones = new ArrayList<>();
 	
 	public String getIdOferta() {
@@ -58,17 +57,10 @@ public class OfertaDto {
 	public void setFechaModificacion(Date fechaModificacion) {
 		this.fechaModificacion = fechaModificacion;
 	}
-	public Integer getEstatus() {
-		return estatus;
-	}
-	public void setEstatus(Integer estatus) {
-		this.estatus = estatus;
-	}
-	
-	public Configuracion getConfiguracion() {
+	public ConfiguracionDto getConfiguracion() {
 		return configuracion;
 	}
-	public void setConfiguracion(Configuracion configuracion) {
+	public void setConfiguracion(ConfiguracionDto configuracion) {
 		this.configuracion = configuracion;
 	}
 	public List<String> getAcciones() {
@@ -76,8 +68,6 @@ public class OfertaDto {
 	}
 	public void setAcciones(List<String> acciones) {
 		this.acciones = acciones;
-	}
-	
-	
+	}	
 	
 }

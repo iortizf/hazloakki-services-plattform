@@ -41,10 +41,10 @@ bootJar {
 
 dependencies {
   compile('org.springframework.boot:spring-boot-starter-data-mongodb')
-  compile('org.springframework.boot:spring-boot-starter-web')
-  
+  compile('org.javassist:javassist:3.18.2-GA')    
+  compile('org.springframework.boot:spring-boot-starter-web')  
   compile 'org.springframework.cloud:spring-cloud-starter-openfeign'
-  compile('org.flywaydb:flyway-core')
+  compile('com.github.mongobee:mongobee:0.13')
   compile 'com.amazonaws:aws-java-sdk-s3'
 }
 

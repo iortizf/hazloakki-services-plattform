@@ -54,7 +54,7 @@ public class OfertaRepositoryImp implements OfertaRepository {
 		if(oferta!=null)
 			return oferta.getConfig();
 			
-		return new Configuracion();
+		return null;
 	}
 
 	@Override
@@ -66,7 +66,7 @@ public class OfertaRepositoryImp implements OfertaRepository {
 			return oferta.getConfig();
 		}
 		
-		return new Configuracion();
+		return null;
 	}
 
 }
