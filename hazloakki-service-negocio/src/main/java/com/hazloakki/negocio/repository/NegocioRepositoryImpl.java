@@ -11,17 +11,17 @@ import com.hazloakki.negocio.persist.SpringJdbcDao;
 @Repository
 public class NegocioRepositoryImpl extends SpringJdbcDao implements NegocioRepository {
 
-	private String qryInsert = "INSERT INTO negocio (id_negocio,nombre,id_categoria,email,descripcion,telefono,"
-			+ " domicilio,latitud,longitud,estatus,codigo_postal,delegacion,colonia,calle,"
-			+ " numero_exterior,horario,responsable,id_cuenta) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+	private String qryInsert = "INSERT INTO negocio (id_negocio, nombre, id_categoria, email, descripcion, telefono,"
+			+ " domicilio, latitud, longitud, idEstatus, codigo_postal, delegacion, colonia, calle,"
+			+ " numero_exterior, responsable, id_cuenta) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
 	private String qrySelectNegocio = "select * from negocio where id_negocio = ?";
 
-	private String qrySelecNegociosByCuentaAndEstatus = "SELECT * FROM negocio WHERE id_cuenta = ? and estatus = ?";
+	private String qrySelecNegociosByCuentaAndEstatus = "SELECT * FROM negocio WHERE id_cuenta = ? and idEstatus = ?";
 
 	private String qryUpdateNegocio = "UPDATE negocio set nombre = ?, id_categoria = ?, email = ?, descripcion = ?,"
-			+ " telefono = ?, domicilio = ?, latitud = ?, longitud = ?,  estatus = ?, codigo_postal = ?,"
-			+ "  delegacion = ?, colonia = ?, calle = ? , numero_exterior = ?,  horario = ? , responsable = ? , id_cuenta = ? WHERE id_negocio = ?";
+			+ " telefono = ?, domicilio = ?, latitud = ?, longitud = ?,  idEstatus = ?, codigo_postal = ?,"
+			+ "  delegacion = ?, colonia = ?, calle = ? , numero_exterior = ?, responsable = ? , id_cuenta = ? WHERE id_negocio = ?";
 
 	private String qryDeleteNegocio = "DELETE FROM negocio WHERE ID_NEGOCIO = ?";
 
@@ -32,9 +32,9 @@ public class NegocioRepositoryImpl extends SpringJdbcDao implements NegocioRepos
 
 		jdbcTemplate.update(qryInsert, negocioDto.getIdNegocio(), negocioDto.getNombre(), negocioDto.getIdCategoria(),
 				negocioDto.getEmail(), negocioDto.getDescripcion(), negocioDto.getTelefono(), negocioDto.getDomicilio(),
-				negocioDto.getLatitud(), negocioDto.getLongitud(), negocioDto.isEstatus(), negocioDto.getCodigoPostal(),
+				negocioDto.getLatitud(), negocioDto.getLongitud(), negocioDto.getIdEstatus(), negocioDto.getCodigoPostal(),
 				negocioDto.getDelegacion(), negocioDto.getColonia(), negocioDto.getCalle(),
-				negocioDto.getNumeroExterior(), negocioDto.getHorario(), negocioDto.getResponsable(),
+				negocioDto.getNumeroExterior(),negocioDto.getResponsable(),
 				negocioDto.getIdCuenta());
 
 		return negocioDto.getIdNegocio();
@@ -62,9 +62,9 @@ public class NegocioRepositoryImpl extends SpringJdbcDao implements NegocioRepos
 	public void actualizarByIdNegocio(String idNegocio, NegocioDto negocioDto) {
 		jdbcTemplate.update(qryUpdateNegocio, negocioDto.getNombre(), negocioDto.getIdCategoria(),
 				negocioDto.getEmail(), negocioDto.getDescripcion(), negocioDto.getTelefono(), negocioDto.getDomicilio(),
-				negocioDto.getLatitud(), negocioDto.getLongitud(), negocioDto.isEstatus(), negocioDto.getCodigoPostal(),
+				negocioDto.getLatitud(), negocioDto.getLongitud(), negocioDto.getIdEstatus(), negocioDto.getCodigoPostal(),
 				negocioDto.getDelegacion(), negocioDto.getColonia(), negocioDto.getCalle(),
-				negocioDto.getNumeroExterior(), negocioDto.getHorario(), negocioDto.getResponsable(),
+				negocioDto.getNumeroExterior(), negocioDto.getResponsable(),
 				negocioDto.getIdCuenta(), negocioDto.getIdNegocio());
 	}
 

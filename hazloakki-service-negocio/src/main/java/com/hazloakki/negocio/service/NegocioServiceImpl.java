@@ -7,10 +7,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.hazloakki.negocio.api.NegocioException;
+import com.hazloakki.negocio.modelo.HorarioDto;
 import com.hazloakki.negocio.modelo.MetodoPagoDto;
 import com.hazloakki.negocio.modelo.NegocioDto;
 import com.hazloakki.negocio.modelo.ServiciosDto;
 import com.hazloakki.negocio.modelo.TipoTarjetaDto;
+import com.hazloakki.negocio.repository.HorarioRepository;
 import com.hazloakki.negocio.repository.NegocioAccionesRepository;
 import com.hazloakki.negocio.repository.NegocioMetodoPagoRepository;
 import com.hazloakki.negocio.repository.NegocioRepository;
@@ -39,6 +41,8 @@ public class NegocioServiceImpl implements NegocioService {
 	private NegocioTarjetasPagoRepository negocioTarjetasPagoRepository;
 	@Autowired
 	private NegocioAccionesRepository negocioAccionesRepository;
+	@Autowired
+	private HorarioRepository horarioRepository;
 
 	@Transactional
 	@Override
@@ -60,6 +64,12 @@ public class NegocioServiceImpl implements NegocioService {
 			negocioDto.getTipoTarjetaList().forEach(ttarjeta -> negocioTarjetasPagoRepository.guardar(idNegocio, ttarjeta.getId()));
 			//Acciones por negocio
 			negocioDto.getAcciones().forEach(idAccion -> negocioAccionesRepository.guardar(idNegocio, idAccion));
+			//Horarios del negocio
+			negocioDto.getHorario().forEach(horario -> {
+				horario.setIdNegocio(idNegocio);
+				horarioRepository.guardar(horario);
+			});
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -80,11 +90,13 @@ public class NegocioServiceImpl implements NegocioService {
 		List<MetodoPagoDto> dataMetodosPagoNegocio = negocioMetodoPagoRepository.consultar(idNegocio);
 		List<TipoTarjetaDto> dataTipoTarjetaNEgocio = negocioTarjetasPagoRepository.findByIdNegocio(idNegocio);
 		List<String> acciones = negocioAccionesRepository.acciones(idNegocio);
+		List<HorarioDto> horario = horarioRepository.horarioByIdNegocio(idNegocio);
 
 		negocioDto.setServiciosList(dataServiciosNegocio);
 		negocioDto.setMetodoPagoList(dataMetodosPagoNegocio);
 		negocioDto.setTipoTarjetaList(dataTipoTarjetaNEgocio);
 		negocioDto.setAcciones(acciones);
+		negocioDto.setHorario(horario);
 
 		return negocioDto;
 	}
@@ -117,6 +129,10 @@ public class NegocioServiceImpl implements NegocioService {
 		});			
 		
 		negocio.getAcciones().forEach(idAccion -> negocioAccionesRepository.guardar(idNegocio, idAccion));
+		negocio.getHorario().forEach(horario -> {
+			horario.setIdNegocio(idNegocio);
+			horarioRepository.actualizar(horario);
+		});
 
 		return obtenerNegocio(idNegocio);
 	}
@@ -137,6 +153,7 @@ public class NegocioServiceImpl implements NegocioService {
 		negocioAccionesRepository.eliminar(idNegocio);
 		
 		negocioRepository.eliminarByIdNegocio(idNegocio);
+		horarioRepository.eliminarHorarioNegocio(idNegocio);
 
 	}
 

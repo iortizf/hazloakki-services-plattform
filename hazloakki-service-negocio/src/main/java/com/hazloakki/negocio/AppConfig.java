@@ -29,11 +29,11 @@ public class AppConfig {
 	private String initDatabase;
 
 	@Bean(initMethod = "migrate")
-	Flyway flyway() {
+	Flyway flyway(DataSource ds) {
 		Flyway flyway = new Flyway();
 		flyway.setBaselineOnMigrate(true);
 		flyway.setLocations("db.migration");
-		flyway.setDataSource(dataSource());
+		flyway.setDataSource(ds);
 		return flyway;
 	}
 
@@ -52,6 +52,7 @@ public class AppConfig {
 		return new DataSourceTransactionManager(dataSource);
 	}
 
+	/*
 	@Bean
 	public DataSource dataSource() {
 		BasicDataSource dataSource = new BasicDataSource();
@@ -60,7 +61,7 @@ public class AppConfig {
 		dataSource.setUsername("admin");
 		dataSource.setPassword("admin");
 		return dataSource;
-	}
+	}*/
 	
 	@Value("${hazloakki.aws.access_key_id}")
 	private String awsId;

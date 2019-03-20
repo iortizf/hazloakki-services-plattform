@@ -8,13 +8,12 @@ CREATE TABLE negocio (
   domicilio varchar(45) DEFAULT NULL,
   latitud varchar(45) DEFAULT NULL,
   longitud varchar(45) DEFAULT NULL,
-  estatus BOOLEAN NOT NULL DEFAULT FALSE,
+  idEstatus INT NOT NULL,
   codigo_postal varchar(45) DEFAULT NULL,
   delegacion varchar(45) DEFAULT NULL,
   colonia varchar(45) DEFAULT NULL,
   calle varchar(45) DEFAULT NULL,
   numero_exterior varchar(45) DEFAULT NULL,
-  horario varchar(45) DEFAULT NULL,
   responsable varchar(45) DEFAULT NULL,
   id_cuenta varchar(255) DEFAULT NULL
 );
@@ -101,5 +100,27 @@ CREATE TABLE negocios_acciones(
 	 PRIMARY KEY(id_negocio, id_accion),
 	 FOREIGN KEY (id_negocio) REFERENCES negocio (id_negocio)
 );
+CREATE TABLE cat_dia_semana(
+	 id_dia INT,
+	 dia VARCHAR(50),
+	 PRIMARY KEY(id_dia)
+);
 
+INSERT INTO cat_dia_semana VALUES(1, 'Sábado');
+INSERT INTO cat_dia_semana VALUES(2, 'Domingo');
+INSERT INTO cat_dia_semana VALUES(3, 'Lunes');
+INSERT INTO cat_dia_semana VALUES(4, 'Martes');
+INSERT INTO cat_dia_semana VALUES(5, 'Miércoles');
+INSERT INTO cat_dia_semana VALUES(6, 'Jueves');
+INSERT INTO cat_dia_semana VALUES(7, 'Viernes');
 
+CREATE TABLE negocios_horario(
+	id_negocio VARCHAR(255),
+	id_dia INT,
+	abre VARCHAR(50),
+	cierra VARCHAR(50),
+	abierto BOOLEAN NOT NULL DEFAULT FALSE,
+	veinticuatroHrs	BOOLEAN NOT NULL DEFAULT FALSE,
+	FOREIGN KEY (id_negocio) REFERENCES negocio (id_negocio),
+	FOREIGN KEY (id_dia) REFERENCES cat_dia_semana (id_dia)
+);

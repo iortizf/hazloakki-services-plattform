@@ -11,26 +11,26 @@ public class NegocioDto {
 
 	private String idNegocio;
 	private String nombre;
-	private Integer idCategoria; //revisar este campo
+	private Integer idCategoria;
 	private String email;
 	private String descripcion;
 	private String telefono;
 	private String domicilio;
-	private Double latitud;
-	private Double longitud;
+	private String latitud;
+	private String longitud;
 	private String idCuenta;
 	private String codigoPostal;
 	private String delegacion;
 	private String colonia;
 	private String calle;
 	private String numeroExterior;
-	private boolean estatus;
-	private String horario;
+	private Integer idEstatus;
 	private String responsable;
 	private List<ServiciosDto> serviciosList = new ArrayList<>();
 	private List<MetodoPagoDto> metodoPagoList = new ArrayList<>();
 	private List<TipoTarjetaDto> tipoTarjetaList = new ArrayList<>();
 	private List<String> acciones = new ArrayList<>();
+	private List<HorarioDto> horario = new ArrayList<>();
 	
 	public String getIdNegocio() {
 		return idNegocio;
@@ -74,17 +74,24 @@ public class NegocioDto {
 	public void setDomicilio(String domicilio) {
 		this.domicilio = domicilio;
 	}
-	public Double getLatitud() {
+	
+	public String getLatitud() {
 		return latitud;
 	}
-	public void setLatitud(Double latitud) {
+	public void setLatitud(String latitud) {
 		this.latitud = latitud;
 	}
-	public Double getLongitud() {
+	public String getLongitud() {
 		return longitud;
 	}
-	public void setLongitud(Double longitud) {
+	public void setLongitud(String longitud) {
 		this.longitud = longitud;
+	}
+	public Integer getIdEstatus() {
+		return idEstatus;
+	}
+	public void setIdEstatus(Integer idEstatus) {
+		this.idEstatus = idEstatus;
 	}
 	public String getIdCuenta() {
 		return idCuenta;
@@ -121,19 +128,7 @@ public class NegocioDto {
 	}
 	public void setNumeroExterior(String numeroExterior) {
 		this.numeroExterior = numeroExterior;
-	}
-	public boolean isEstatus() {
-		return estatus;
-	}
-	public void setEstatus(boolean estatus) {
-		this.estatus = estatus;
-	}
-	public String getHorario() {
-		return horario;
-	}
-	public void setHorario(String horario) {
-		this.horario = horario;
-	}
+	}	
 	public String getResponsable() {
 		return responsable;
 	}
@@ -164,7 +159,11 @@ public class NegocioDto {
 	public void setAcciones(List<String> acciones) {
 		this.acciones = acciones;
 	}
-	
-	
+	public List<HorarioDto> getHorario() {
+		return horario;
+	}
+	public void setHorario(List<HorarioDto> horario) {
+		this.horario = horario;
+	}
 	
 }

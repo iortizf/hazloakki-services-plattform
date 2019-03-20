@@ -5,6 +5,7 @@ import java.util.List;
 public interface NegocioAccionesRepository {
 	
 	void guardar(String idNegocio, String idAccion);
+	void actualizar(String idNegocio, String idAccion);
 	void eliminar(String idNegocio);
 	List<String> acciones(String idNegocio);
 
