@@ -14,7 +14,7 @@ public interface NegocioRepository {
 
 	String guardar(NegocioDto negocioDto);
 	NegocioDto findById(String idNegocio);
-	List<NegocioDto> findByIdCuentaAndEstatus(String idCuenta, boolean estatus);
+	List<NegocioDto> findByIdCuentaAndEstatus(String idCuenta, Integer idEstatus);
 	void actualizarByIdNegocio(String idNegocio, NegocioDto negocioDto);
 	void eliminarByIdNegocio(String idNegocio);	
 }

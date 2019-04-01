@@ -1,7 +1,8 @@
 package com.hazloakki.ofertas.service;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -91,7 +92,8 @@ public class OfertaServiceImp implements OfertaService {
 		
 		Configuracion config = oferta.getConfig();
 		config.setIdEstatus(idEstatus);
-		config.setFechaModificacion(new Date());
+		config.setFechaModificacion(LocalDateTime.now()
+				.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm")));
 		oferta.setConfig(config);
 		ofertaRepository.modificar(oferta);
 	}

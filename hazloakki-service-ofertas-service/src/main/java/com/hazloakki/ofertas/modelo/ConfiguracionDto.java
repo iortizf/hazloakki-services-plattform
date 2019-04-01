@@ -1,23 +1,23 @@
 package com.hazloakki.ofertas.modelo;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class ConfiguracionDto {
 	
 	private String idOferta;
 	private Integer idEstatus;
-	private Date inicio;
-	private Date fin;
-	private Date fechaModificacion;
+	private String inicio;
+	private String fin;
+	private String fechaModificacion;
 	private Integer idRecordatorioInicio;
 	private Integer idRecordatorioFin;	
 	private List<Integer> idTipoAlerta = new ArrayList<>();;
-	private Integer distancia;
+	private Double distancia;
 	private Double precio;
 	private String cupon;
 	private Integer idTemperatura;
+	private Integer idGenero;
 	
 	public String getIdOferta() {
 		return idOferta;
@@ -30,24 +30,23 @@ public class ConfiguracionDto {
 	}
 	public void setIdEstatus(Integer idEstatus) {
 		this.idEstatus = idEstatus;
-	}
-	
-	public Date getInicio() {
+	}	
+	public String getInicio() {
 		return inicio;
 	}
-	public void setInicio(Date inicio) {
+	public void setInicio(String inicio) {
 		this.inicio = inicio;
 	}
-	public Date getFin() {
+	public String getFin() {
 		return fin;
 	}
-	public void setFin(Date fin) {
+	public void setFin(String fin) {
 		this.fin = fin;
 	}
-	public Date getFechaModificacion() {
+	public String getFechaModificacion() {
 		return fechaModificacion;
 	}
-	public void setFechaModificacion(Date fechaModificacion) {
+	public void setFechaModificacion(String fechaModificacion) {
 		this.fechaModificacion = fechaModificacion;
 	}
 	public Integer getIdRecordatorioInicio() {
@@ -68,11 +67,18 @@ public class ConfiguracionDto {
 	public void setIdTipoAlerta(List<Integer> idTipoAlerta) {
 		this.idTipoAlerta = idTipoAlerta;
 	}
-	public Integer getDistancia() {
+	
+	public Double getDistancia() {
 		return distancia;
 	}
-	public void setDistancia(Integer distancia) {
+	public void setDistancia(Double distancia) {
 		this.distancia = distancia;
+	}
+	public Integer getIdGenero() {
+		return idGenero;
+	}
+	public void setIdGenero(Integer idGenero) {
+		this.idGenero = idGenero;
 	}
 	public Double getPrecio() {
 		return precio;

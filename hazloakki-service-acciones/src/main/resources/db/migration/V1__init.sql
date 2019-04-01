@@ -1,5 +1,5 @@
 CREATE TABLE cat_acciones (
- id_accion VARCHAR(255) PRIMARY KEY,
+ id_accion INT PRIMARY KEY,
  nombre varchar(255) DEFAULT NULL,
  descripcion varchar(255) DEFAULT NULL,
  estatus BOOLEAN NOT NULL DEFAULT FALSE

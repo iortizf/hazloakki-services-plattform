@@ -48,6 +48,7 @@ dependencies {
   testCompile('org.springframework.boot:spring-boot-starter-test')
   runtime('org.postgresql:postgresql')
   compile('org.flywaydb:flyway-core')
+  compile group: 'org.javassist', name: 'javassist', version: '3.24.1-GA'
 }
 
 dependencyManagement {

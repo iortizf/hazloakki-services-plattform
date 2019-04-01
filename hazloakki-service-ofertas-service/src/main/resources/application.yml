@@ -6,6 +6,3 @@ spring:
       port: 27017
       host: localhost
     
-hazloakki.aws.access_key_id: xx
-hazloakki.aws.secret_access_key: xx
-hazloakki.s3.region: us-east-1

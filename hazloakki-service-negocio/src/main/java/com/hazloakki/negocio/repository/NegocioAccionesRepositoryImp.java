@@ -16,7 +16,7 @@ public class NegocioAccionesRepositoryImp extends SpringJdbcDao implements Negoc
 	private String qryUpdateAccionesNegocio = "UPDATE negocios_acciones SET id_accion=? WHERE id_negocio = ?";
 	
 	@Override
-	public void guardar(String idNegocio, String idAccion) {
+	public void guardar(String idNegocio, Integer idAccion) {
 		jdbcTemplate.update(qryInsertNegocioAcciones, idNegocio, idAccion);
 	}
 
@@ -26,13 +26,13 @@ public class NegocioAccionesRepositoryImp extends SpringJdbcDao implements Negoc
 	}
 
 	@Override
-	public List<String> acciones(String idNegocio) {
+	public List<Integer> acciones(String idNegocio) {
 		return jdbcTemplate.query(qrySelectAccionesNegocio, new Object[] { idNegocio },
-				BeanPropertyRowMapper.newInstance(String.class));
+				BeanPropertyRowMapper.newInstance(Integer.class));
 	}
 
 	@Override
-	public void actualizar(String idNegocio, String idAccion) {
+	public void actualizar(String idNegocio, Integer idAccion) {
 		jdbcTemplate.update(qryUpdateAccionesNegocio, idAccion, idNegocio);		
 	}
 

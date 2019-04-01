@@ -11,7 +11,7 @@ import com.hazloakki.negocio.persist.SpringJdbcDao;
 @Repository
 public class HorarioRepositoryImp extends SpringJdbcDao implements HorarioRepository {
 	
-	private String qryInsert = "INSERT INTO (id_negocio, id_dia, abre, cierra, abierto, veinticuatroHrs) VALUES(?,?,?,?,?,?)";
+	private String qryInsert = "INSERT INTO negocios_horario (id_negocio, id_dia, abre, cierra, abierto, veinticuatroHrs) VALUES(?,?,?,?,?,?)";
 	private String qryUpdateHorario = "UPDATE negocios_horario set id_dia = ?, abre=?, cierra=?, abierto=?, veinticuatroHrs=? WHERE id_negocio=?";
 	private String qryDeleteNegocio = "DELETE FROM negocios_horario WHERE id_negocio = ?";
 	private String qryHorarioByNegocio = "SELECT * FROM negocios_horario WHERE id_negocio = ?";

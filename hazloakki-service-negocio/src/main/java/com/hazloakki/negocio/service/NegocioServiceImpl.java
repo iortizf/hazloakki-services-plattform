@@ -18,7 +18,6 @@ import com.hazloakki.negocio.repository.NegocioMetodoPagoRepository;
 import com.hazloakki.negocio.repository.NegocioRepository;
 import com.hazloakki.negocio.repository.NegocioTarjetasPagoRepository;
 import com.hazloakki.negocio.repository.ServiciosNegocioRepository;
-import com.hazloakki.negocio.service.remotos.OfertaDto;
 
 /**
  * @author Jovani Arzate 2018-07-01 HazloAkki para Empresas v.1
@@ -53,15 +52,15 @@ public class NegocioServiceImpl implements NegocioService {
 			/*
 			 * Servicios por negocio
 			 */
-			negocioDto.getServiciosList().forEach( servicio -> negocioServiciosRepository.guardar(idNegocio, servicio.getId()));
+			negocioDto.getServicios().forEach( servicio -> negocioServiciosRepository.guardar(idNegocio, servicio.getId()));
 			/*
 			 * Metodos de pago por negocio
 			 */
-			negocioDto.getMetodoPagoList().forEach(metodo -> negocioMetodoPagoRepository.guardar(idNegocio, metodo.getId()));
+			negocioDto.getMetodoPago().forEach(metodo -> negocioMetodoPagoRepository.guardar(idNegocio, metodo.getId()));
 			/*
 			 * Tipos de tarjeta por negocio
 			 */
-			negocioDto.getTipoTarjetaList().forEach(ttarjeta -> negocioTarjetasPagoRepository.guardar(idNegocio, ttarjeta.getId()));
+			negocioDto.getTipoTarjeta().forEach(ttarjeta -> negocioTarjetasPagoRepository.guardar(idNegocio, ttarjeta.getId()));
 			//Acciones por negocio
 			negocioDto.getAcciones().forEach(idAccion -> negocioAccionesRepository.guardar(idNegocio, idAccion));
 			//Horarios del negocio
@@ -89,12 +88,12 @@ public class NegocioServiceImpl implements NegocioService {
 		List<ServiciosDto> dataServiciosNegocio = negocioServiciosRepository.findServicios(idNegocio);
 		List<MetodoPagoDto> dataMetodosPagoNegocio = negocioMetodoPagoRepository.consultar(idNegocio);
 		List<TipoTarjetaDto> dataTipoTarjetaNEgocio = negocioTarjetasPagoRepository.findByIdNegocio(idNegocio);
-		List<String> acciones = negocioAccionesRepository.acciones(idNegocio);
+		List<Integer> acciones = negocioAccionesRepository.acciones(idNegocio);
 		List<HorarioDto> horario = horarioRepository.horarioByIdNegocio(idNegocio);
 
-		negocioDto.setServiciosList(dataServiciosNegocio);
-		negocioDto.setMetodoPagoList(dataMetodosPagoNegocio);
-		negocioDto.setTipoTarjetaList(dataTipoTarjetaNEgocio);
+		negocioDto.setServicios(dataServiciosNegocio);
+		negocioDto.setMetodoPago(dataMetodosPagoNegocio);
+		negocioDto.setTipoTarjeta(dataTipoTarjetaNEgocio);
 		negocioDto.setAcciones(acciones);
 		negocioDto.setHorario(horario);
 
@@ -118,13 +117,13 @@ public class NegocioServiceImpl implements NegocioService {
 		negocioAccionesRepository.eliminar(idNegocio);
 		
 		//Servicios por negocio
-		negocio.getServiciosList().forEach(svc -> negocioServiciosRepository.guardar(idNegocio, svc.getId()));
+		negocio.getServicios().forEach(svc -> negocioServiciosRepository.guardar(idNegocio, svc.getId()));
 		//Metodos de pago por negocio
-		negocio.getMetodoPagoList().forEach(mp -> {
+		negocio.getMetodoPago().forEach(mp -> {
 			negocioMetodoPagoRepository.guardar(idNegocio, mp.getId());
 			if(mp.getId().equals(METHOD_OF_PAYMENT_CARD_ID)) {
 				//Tipos de tarjeta por negocio
-				negocio.getTipoTarjetaList().forEach(tt -> negocioTarjetasPagoRepository.guardar(idNegocio, tt.getId()));
+				negocio.getTipoTarjeta().forEach(tt -> negocioTarjetasPagoRepository.guardar(idNegocio, tt.getId()));
 			}
 		});			
 		
@@ -160,14 +159,19 @@ public class NegocioServiceImpl implements NegocioService {
 	@Override
 	public List<NegocioDto> obtenerAllNegociosByCuenta(String idCuenta) {
 
-		return negocioRepository.findByIdCuentaAndEstatus(idCuenta, Boolean.TRUE);
+		return negocioRepository.findByIdCuentaAndEstatus(idCuenta, 1);
 	}
 
-	@Override
-	public List<OfertaDto> obtenerAllOfertasByNegocio(String idNegocio) {
 
-		// return ofertasNegociosApiClient.obtenerOfertasByNegocio(idNegocio);
-		return null;
+	@Override
+	public void modificarEstatus(String idNegocio, Integer idEstatus) {
+		NegocioDto negocioDto = negocioRepository.findById(idNegocio);
+		if (negocioDto == null) {
+			throw new NegocioException("El negocio seleccionado no esta registrado", idNegocio);
+		}
+		
+		negocioDto.setIdEstatus(idEstatus);
+		negocioRepository.actualizarByIdNegocio(idNegocio, negocioDto);
 	}
 
 }

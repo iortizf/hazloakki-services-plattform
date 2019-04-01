@@ -3,7 +3,7 @@ CREATE TABLE negocio (
   nombre varchar(45) DEFAULT NULL,
   id_categoria NUMERIC,
   email varchar(45) DEFAULT NULL,
-  descripcion varchar(45) DEFAULT NULL,
+  descripcion varchar(255) DEFAULT NULL,
   telefono varchar(45) DEFAULT NULL,
   domicilio varchar(45) DEFAULT NULL,
   latitud varchar(45) DEFAULT NULL,

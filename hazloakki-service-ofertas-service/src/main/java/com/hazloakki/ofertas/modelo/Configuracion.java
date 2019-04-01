@@ -1,7 +1,8 @@
 package com.hazloakki.ofertas.modelo;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -20,16 +21,16 @@ public class Configuracion {
 	/**
 	 * La fecha que se va lanzar la oferta
 	 */
-	private Date inicio;
+	private String inicio;
 	/**
 	 * Indica la fecha fin de la oferta
 	 */
-	private Date fin;
+	private String fin;
 	/**
 	 * Establece cuando se hizo la ultima modificacion
 	 * a la configuración de la oferta
 	 */
-	private Date fechaModificacion;
+	private String fechaModificacion;
 	/**
 	 * Id del catalogo de tiempo de recordatorio 
 	 * (1=Ninguno,2=5 min. antes, 3=10 min. antes)
@@ -45,7 +46,7 @@ public class Configuracion {
 	 * Establece la distancia que va abarcar la oferta (Km)
 	 * 
 	 */
-	private Integer distancia;
+	private Double distancia;
 	/**
 	 * Temperatura de la oferta
 	 * normal, hot, super hot
@@ -62,7 +63,8 @@ public class Configuracion {
 		Configuracion config = new Configuracion();
 		config.setInicio(configDto.getInicio());
 		config.setFin(configDto.getFin());
-		config.setFechaModificacion(new Date());
+		config.setFechaModificacion(LocalDateTime.now()
+				.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm")));
 		config.setIdRecordatorioInicio(configDto.getIdRecordatorioInicio());
 		config.setIdRecordatorioFin(configDto.getIdRecordatorioFin());
 		config.setIdTipoAlerta(configDto.getIdTipoAlerta());
@@ -88,19 +90,22 @@ public class Configuracion {
 		configDto.setIdEstatus(getIdEstatus());
 		configDto.setIdTemperatura(getIdTemperatura());
 		return configDto;
-	}
+	}	
 	
-	
-	public Date getInicio() {
+
+	public String getInicio() {
 		return inicio;
 	}
-	public void setInicio(Date inicio) {
+
+	public void setInicio(String inicio) {
 		this.inicio = inicio;
 	}
-	public Date getFin() {
+
+	public String getFin() {
 		return fin;
 	}
-	public void setFin(Date fin) {
+
+	public void setFin(String fin) {
 		this.fin = fin;
 	}
 
@@ -118,13 +123,13 @@ public class Configuracion {
 
 	public void setPrecio(Double precio) {
 		this.precio = precio;
-	}
+	}	
 
-	public Date getFechaModificacion() {
+	public String getFechaModificacion() {
 		return fechaModificacion;
 	}
 
-	public void setFechaModificacion(Date fechaModificacion) {
+	public void setFechaModificacion(String fechaModificacion) {
 		this.fechaModificacion = fechaModificacion;
 	}
 
@@ -150,13 +155,13 @@ public class Configuracion {
 
 	public void setIdTipoAlerta(List<Integer> idTipoAlerta) {
 		this.idTipoAlerta = idTipoAlerta;
-	}
+	}	
 
-	public Integer getDistancia() {
+	public Double getDistancia() {
 		return distancia;
 	}
 
-	public void setDistancia(Integer distancia) {
+	public void setDistancia(Double distancia) {
 		this.distancia = distancia;
 	}
 

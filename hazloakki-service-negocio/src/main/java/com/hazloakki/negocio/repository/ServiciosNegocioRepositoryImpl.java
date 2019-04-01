@@ -11,7 +11,7 @@ import com.hazloakki.negocio.persist.SpringJdbcDao;
 public class ServiciosNegocioRepositoryImpl extends SpringJdbcDao implements ServiciosNegocioRepository {
 
 	private String qryNegociosServicios = "INSERT INTO negocios_servicios (id_negocio,id_servicio) VALUES(?,?)";
-	private String qrySelectServiciosNegocioByNegocio = "select * from public.negocios_servicios a,public.cat_servicios  b "
+	private String qrySelectServiciosNegocioByNegocio = "select * from negocios_servicios a, cat_servicios  b "
 			+ " where a.id_servicio = b.id"
 			+ " and a.id_negocio = ?";
 

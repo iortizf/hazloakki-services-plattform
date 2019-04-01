@@ -5,6 +5,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.hazloakki.login.api.LoginException;
 import com.hazloakki.login.modelo.LoginDto;
 import com.hazloakki.login.service.remoto.CuentaApiClient;
 import com.hazloakki.login.service.remoto.CuentaDto;
@@ -23,19 +24,23 @@ public class LoginServiceImpl implements LoginService {
 	public LoginDto existCuenta(String email, String password) {
 		
 		LoginDto loginDto  =null;
-		CuentaDto cuentaDto = cuentaApiClient.validaCuentaExist(email, password);
-		Optional<CuentaDto> optionalProject = Optional.ofNullable(cuentaDto);
-		
-		if(optionalProject.isPresent()) {
-			loginDto  = new LoginDto();
-			loginDto.setIdCuenta(cuentaDto.getIdCuenta());
-			loginDto.setNombre(cuentaDto.getNombre());
-			loginDto.setApellidos(cuentaDto.getApellidos());
-			loginDto.setTelefono(cuentaDto.getTelefono());
-			loginDto.setEstatus(cuentaDto.isEstatus());
-			loginDto.setFecha(cuentaDto.getFecha());
-			loginDto.setEmail(cuentaDto.getEmail());
-		}
+		try {
+			CuentaDto cuentaDto = cuentaApiClient.validaCuentaExist(email, password);
+			Optional<CuentaDto> optionalProject = Optional.ofNullable(cuentaDto);
+			
+			if(optionalProject.isPresent()) {
+				loginDto  = new LoginDto();
+				loginDto.setIdCuenta(cuentaDto.getIdCuenta());
+				loginDto.setNombre(cuentaDto.getNombre());
+				loginDto.setApellidos(cuentaDto.getApellidos());
+				loginDto.setTelefono(cuentaDto.getTelefono());
+				loginDto.setEstatus(cuentaDto.isEstatus());
+				loginDto.setFecha(cuentaDto.getFecha());
+				loginDto.setEmail(cuentaDto.getEmail());
+			}
+		} catch (Exception e) {
+			throw new LoginException("Usuario/Contraseña incorrectos", "404");
+		}	
 		
 		return loginDto;
 	}

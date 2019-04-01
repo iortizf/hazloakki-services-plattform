@@ -5,19 +5,21 @@ import static org.springframework.http.HttpStatus.CREATED;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.hazloakki.negocio.modelo.NegocioDto;
 import com.hazloakki.negocio.service.NegocioService;
-import com.hazloakki.negocio.service.remotos.OfertaDto;
 
 
 /**
@@ -28,6 +30,7 @@ import com.hazloakki.negocio.service.remotos.OfertaDto;
  */
 @RestController
 @RequestMapping("/api/v1/negocios")
+@CrossOrigin(origins = "*")
 public class NegocioController {
 	
 	@Autowired
@@ -65,6 +68,12 @@ public class NegocioController {
 		return negocioService.modificaNegocio(idNegocio, cuentaDto);
 	}
 	
+	@PatchMapping("/{id}")
+	public void modificaEstatusNegocio(@PathVariable("id") String idNegocio, 
+			@RequestParam("idEstatus") Integer idEstatus ) {
+		negocioService.modificarEstatus(idNegocio, idEstatus);
+	}
+	
 	/**
 	 * Eliminacion de un negocio
 	 * @param idNegocio
@@ -73,11 +82,6 @@ public class NegocioController {
 	public void borrarNegocio(@PathVariable("id") String idNegocio) {
 		negocioService.borrarNegocio(idNegocio);
 	}
-
-	
-	/*
-	 * Solicitud de servicios Remotos
-	 */
 
 	/**
 	 * Se solictan todos los negocios de una cuenta, siempre y cuando exista la cuenta y el negocio
@@ -90,9 +94,4 @@ public class NegocioController {
 		return negocioService.obtenerAllNegociosByCuenta(idCuenta);
 	}
 	
-	@GetMapping("/{id}/ofertas")
-	public List<OfertaDto> obtenerOfertas(@PathVariable("id")String idNegocio){
-		return negocioService.obtenerAllOfertasByNegocio(idNegocio);
-	}
-		
 }

@@ -1,7 +1,6 @@
 package com.hazloakki.ofertas.modelo;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -16,8 +15,8 @@ public class OfertaDto {
 	private String idNegocio;
 	private String titulo;
 	private String descripcion;
-	private Date fechaAlta;
-	private Date fechaModificacion;
+	private String fechaAlta;
+	private String fechaModificacion;
 	private ConfiguracionDto configuracion;
 	private List<String> acciones = new ArrayList<>();
 	
@@ -44,17 +43,17 @@ public class OfertaDto {
 	}
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
-	}
-	public Date getFechaAlta() {
+	}	
+	public String getFechaAlta() {
 		return fechaAlta;
 	}
-	public void setFechaAlta(Date fechaAlta) {
+	public void setFechaAlta(String fechaAlta) {
 		this.fechaAlta = fechaAlta;
 	}
-	public Date getFechaModificacion() {
+	public String getFechaModificacion() {
 		return fechaModificacion;
 	}
-	public void setFechaModificacion(Date fechaModificacion) {
+	public void setFechaModificacion(String fechaModificacion) {
 		this.fechaModificacion = fechaModificacion;
 	}
 	public ConfiguracionDto getConfiguracion() {

@@ -15,7 +15,6 @@ public class NegocioDto {
 	private String email;
 	private String descripcion;
 	private String telefono;
-	private String domicilio;
 	private String latitud;
 	private String longitud;
 	private String idCuenta;
@@ -26,10 +25,10 @@ public class NegocioDto {
 	private String numeroExterior;
 	private Integer idEstatus;
 	private String responsable;
-	private List<ServiciosDto> serviciosList = new ArrayList<>();
-	private List<MetodoPagoDto> metodoPagoList = new ArrayList<>();
-	private List<TipoTarjetaDto> tipoTarjetaList = new ArrayList<>();
-	private List<String> acciones = new ArrayList<>();
+	private List<ServiciosDto> servicios = new ArrayList<>();
+	private List<MetodoPagoDto> metodoPago = new ArrayList<>();
+	private List<TipoTarjetaDto> tipoTarjeta = new ArrayList<>();
+	private List<Integer> acciones = new ArrayList<>();
 	private List<HorarioDto> horario = new ArrayList<>();
 	
 	public String getIdNegocio() {
@@ -67,12 +66,6 @@ public class NegocioDto {
 	}
 	public void setTelefono(String telefono) {
 		this.telefono = telefono;
-	}
-	public String getDomicilio() {
-		return domicilio;
-	}
-	public void setDomicilio(String domicilio) {
-		this.domicilio = domicilio;
 	}
 	
 	public String getLatitud() {
@@ -135,31 +128,32 @@ public class NegocioDto {
 	public void setResponsable(String responsable) {
 		this.responsable = responsable;
 	}
-	public List<ServiciosDto> getServiciosList() {
-		return serviciosList;
+	
+	public List<ServiciosDto> getServicios() {
+		return servicios;
 	}
-	public void setServiciosList(List<ServiciosDto> serviciosList) {
-		this.serviciosList = serviciosList;
+	public void setServicios(List<ServiciosDto> servicios) {
+		this.servicios = servicios;
 	}
-	public List<MetodoPagoDto> getMetodoPagoList() {
-		return metodoPagoList;
+	public List<MetodoPagoDto> getMetodoPago() {
+		return metodoPago;
 	}
-	public void setMetodoPagoList(List<MetodoPagoDto> metodoPagoList) {
-		this.metodoPagoList = metodoPagoList;
+	public void setMetodoPago(List<MetodoPagoDto> metodoPago) {
+		this.metodoPago = metodoPago;
 	}
-	public List<TipoTarjetaDto> getTipoTarjetaList() {
-		return tipoTarjetaList;
+	public List<TipoTarjetaDto> getTipoTarjeta() {
+		return tipoTarjeta;
 	}
-	public void setTipoTarjetaList(List<TipoTarjetaDto> tipoTarjetaList) {
-		this.tipoTarjetaList = tipoTarjetaList;
+	public void setTipoTarjeta(List<TipoTarjetaDto> tipoTarjeta) {
+		this.tipoTarjeta = tipoTarjeta;
 	}
-	public List<String> getAcciones() {
+		public List<Integer> getAcciones() {
 		return acciones;
 	}
-	public void setAcciones(List<String> acciones) {
+	public void setAcciones(List<Integer> acciones) {
 		this.acciones = acciones;
 	}
-	public List<HorarioDto> getHorario() {
+		public List<HorarioDto> getHorario() {
 		return horario;
 	}
 	public void setHorario(List<HorarioDto> horario) {

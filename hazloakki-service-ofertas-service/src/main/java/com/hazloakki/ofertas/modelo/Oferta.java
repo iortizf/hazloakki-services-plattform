@@ -1,7 +1,8 @@
 package com.hazloakki.ofertas.modelo;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.annotation.Id;
@@ -15,8 +16,8 @@ public class Oferta {
 	private String idNegocio;
 	private String titulo;
 	private String descripcion;
-	private Date fechaAlta;
-	private Date fechaModificacion;
+	private String fechaAlta;
+	private String fechaModificacion;
 	private Configuracion config;
 	private List<String> acciones = new ArrayList<>();
 	
@@ -29,12 +30,14 @@ public class Oferta {
 		oferta.setDescripcion(ofertaDto.getDescripcion());
 		oferta.setIdNegocio(ofertaDto.getIdNegocio());
 		oferta.setAcciones(ofertaDto.getAcciones());
-		if(oferta.getId()!=null) {
-			oferta.setFechaModificacion(new Date());
+		LocalDateTime now = LocalDateTime.now();
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+		String formatDateTime = now.format(formatter);
+		if(oferta.getId()!=null) {			
+			oferta.setFechaModificacion(formatDateTime);
 		}else {
-			Date fechaAlta = new Date();
-			oferta.setFechaAlta(fechaAlta);
-			oferta.setFechaModificacion(fechaAlta);
+			oferta.setFechaAlta(formatDateTime);
+			oferta.setFechaModificacion(formatDateTime);
 		}
 		
 		return oferta;
@@ -45,6 +48,7 @@ public class Oferta {
 		OfertaDto ofertaDto = new OfertaDto();
 		ofertaDto.setIdOferta(getId());
 		ofertaDto.setConfiguracion(getConfig().to());
+		ofertaDto.getConfiguracion().setIdOferta(getId());
 		ofertaDto.setTitulo(getTitulo());
 		ofertaDto.setDescripcion(getDescripcion());
 		ofertaDto.setIdNegocio(getIdNegocio());
@@ -79,18 +83,23 @@ public class Oferta {
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
-	public Date getFechaAlta() {
+	
+	public String getFechaAlta() {
 		return fechaAlta;
 	}
-	public void setFechaAlta(Date fechaAlta) {
+
+	public void setFechaAlta(String fechaAlta) {
 		this.fechaAlta = fechaAlta;
 	}
-	public Date getFechaModificacion() {
+
+	public String getFechaModificacion() {
 		return fechaModificacion;
 	}
-	public void setFechaModificacion(Date fechaModificacion) {
+
+	public void setFechaModificacion(String fechaModificacion) {
 		this.fechaModificacion = fechaModificacion;
-	}	
+	}
+
 	public Configuracion getConfig() {
 		return config;
 	}

@@ -7,9 +7,12 @@ spring:
     show-sql: true
     hibernate:
       ddl-auto: update 
+    properties:
+      hibernate.temp.use_jdbc_metadata_defaults: false
   datasource:
     platform: postgres
-    url: jdbc:postgresql://account-db-svc/hazloakki_cuenta
+    #url: jdbc:postgresql://account-db-svc/hazloakki_cuenta
+    url: jdbc:postgresql://localhost:5432/hazloakki_cuenta
     username: admin
     password: admin
     driverClassName: org.postgresql.Driver

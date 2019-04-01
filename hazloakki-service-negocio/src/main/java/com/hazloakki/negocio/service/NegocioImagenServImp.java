@@ -27,7 +27,7 @@ import com.hazloakki.negocio.modelo.ImagenDto;
 public class NegocioImagenServImp implements NegocioImagenService {
 
 	private static String AWS_URL = "https://s3.amazonaws.com/";
-	private static String AWS_BUCKET_NAME = "hazloakki-negocios";
+	private static String AWS_BUCKET_NAME = "hazloakki-business";
 	private static String PROFILE_SUFIX = "_profile";
 
 	@Autowired

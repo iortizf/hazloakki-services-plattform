@@ -8,17 +8,13 @@ import com.hazloakki.negocio.modelo.NegocioDto;
  * HazloAkki para Empresas v.1
  *
  */
-import com.hazloakki.negocio.service.remotos.OfertaDto;
 public interface NegocioService {
 
 	NegocioDto guardarNegocio(NegocioDto cuentaDto);
 	NegocioDto obtenerNegocio(String idNegocio);
 	NegocioDto modificaNegocio(String idNegocio,NegocioDto cuentaDto);
-	void borrarNegocio(String idNegocio);	
-	/*
-	 * Remotos
-	 */
+	void borrarNegocio(String idNegocio);
+	void modificarEstatus(String idNegocio, Integer idEstatus);
 	List<NegocioDto> obtenerAllNegociosByCuenta(String idCuenta);
-	List<OfertaDto> obtenerAllOfertasByNegocio(String idNegocio);
 
 }

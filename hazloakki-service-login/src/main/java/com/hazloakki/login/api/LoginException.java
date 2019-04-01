@@ -1,6 +1,11 @@
 package com.hazloakki.login.api;
 
 public class LoginException extends RuntimeException {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7487913552705305740L;
+	
 	private final String id;
 
 	public LoginException(String message, String id) {

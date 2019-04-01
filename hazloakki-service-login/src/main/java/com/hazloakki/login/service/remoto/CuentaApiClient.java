@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.hazloakki.login.ClientRemoteConfig;
 
 
-@FeignClient(url="http://account-svc:8085", name = "account-svc", configuration = ClientRemoteConfig.class)
+@FeignClient(url="http://localhost:8085", name = "account-svc", configuration = ClientRemoteConfig.class)
 public interface CuentaApiClient {
 
 	@RequestMapping(method = GET, value = "/api/v1/cuentas/{email}/{password}")
