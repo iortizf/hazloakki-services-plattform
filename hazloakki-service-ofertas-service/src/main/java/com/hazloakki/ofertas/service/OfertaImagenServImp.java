@@ -26,7 +26,7 @@ import com.hazloakki.ofertas.modelo.ImagenDto;
 public class OfertaImagenServImp implements OfertaImagenService {
 
 	private static String AWS_URL = "https://s3.amazonaws.com/";
-	private static String AWS_BUCKET_NAME = "hazloakki-ofertas";
+	private static String AWS_BUCKET_NAME = "hazloakki-offer";
 
 	@Autowired
 	private AmazonS3 s3client;

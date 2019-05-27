@@ -56,7 +56,10 @@ public class Configuracion {
 	/**
 	 * Opcional: Cupon para canjear la oferta
 	 */
-	private String cupon;
+	private String cupon;	
+	private Integer idSexo;
+	private Integer edadDe;
+	private Integer edadA;
 	
 	
 	public static Configuracion from(ConfiguracionDto configDto) {
@@ -64,7 +67,7 @@ public class Configuracion {
 		config.setInicio(configDto.getInicio());
 		config.setFin(configDto.getFin());
 		config.setFechaModificacion(LocalDateTime.now()
-				.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm")));
+				.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
 		config.setIdRecordatorioInicio(configDto.getIdRecordatorioInicio());
 		config.setIdRecordatorioFin(configDto.getIdRecordatorioFin());
 		config.setIdTipoAlerta(configDto.getIdTipoAlerta());
@@ -73,6 +76,9 @@ public class Configuracion {
 		config.setCupon(configDto.getCupon());
 		config.setIdEstatus(configDto.getIdEstatus());
 		config.setIdTemperatura(configDto.getIdTemperatura());
+		config.setIdSexo(configDto.getIdSexo());
+		config.setEdadDe(configDto.getEdadDe());
+		config.setEdadA(configDto.getEdadA());
 		return config;
 	}
 	
@@ -89,6 +95,9 @@ public class Configuracion {
 		configDto.setCupon(getCupon());
 		configDto.setIdEstatus(getIdEstatus());
 		configDto.setIdTemperatura(getIdTemperatura());
+		configDto.setIdSexo(getIdSexo());
+		configDto.setEdadDe(getEdadDe());
+		configDto.setEdadA(getEdadA());
 		return configDto;
 	}	
 	
@@ -179,6 +188,30 @@ public class Configuracion {
 
 	public void setCupon(String cupon) {
 		this.cupon = cupon;
+	}
+
+	public Integer getIdSexo() {
+		return idSexo;
+	}
+
+	public void setIdSexo(Integer idSexo) {
+		this.idSexo = idSexo;
+	}
+
+	public Integer getEdadDe() {
+		return edadDe;
+	}
+
+	public void setEdadDe(Integer edadDe) {
+		this.edadDe = edadDe;
+	}
+
+	public Integer getEdadA() {
+		return edadA;
+	}
+
+	public void setEdadA(Integer edadA) {
+		this.edadA = edadA;
 	}
 	
 	

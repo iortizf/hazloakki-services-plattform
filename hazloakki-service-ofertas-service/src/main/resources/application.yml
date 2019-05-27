@@ -1,8 +1,0 @@
-server.port: 8089
-spring:
-  data:
-    mongodb:
-      database: hazloakki_ofertas
-      port: 27017
-      host: localhost
-    

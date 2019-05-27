@@ -19,7 +19,7 @@ public class Oferta {
 	private String fechaAlta;
 	private String fechaModificacion;
 	private Configuracion config;
-	private List<String> acciones = new ArrayList<>();
+	private List<Integer> acciones = new ArrayList<>();
 	
 	public static Oferta from(OfertaDto ofertaDto) {
 		
@@ -31,7 +31,7 @@ public class Oferta {
 		oferta.setIdNegocio(ofertaDto.getIdNegocio());
 		oferta.setAcciones(ofertaDto.getAcciones());
 		LocalDateTime now = LocalDateTime.now();
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 		String formatDateTime = now.format(formatter);
 		if(oferta.getId()!=null) {			
 			oferta.setFechaModificacion(formatDateTime);
@@ -107,13 +107,13 @@ public class Oferta {
 		this.config = config;
 	}
 
-	public List<String> getAcciones() {
+	public List<Integer> getAcciones() {
 		return acciones;
 	}
 
-	public void setAcciones(List<String> acciones) {
+	public void setAcciones(List<Integer> acciones) {
 		this.acciones = acciones;
-	}	
+	}
 	
 
 }

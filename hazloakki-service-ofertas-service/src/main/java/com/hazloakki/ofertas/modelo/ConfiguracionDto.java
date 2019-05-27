@@ -17,7 +17,9 @@ public class ConfiguracionDto {
 	private Double precio;
 	private String cupon;
 	private Integer idTemperatura;
-	private Integer idGenero;
+	private Integer idSexo;
+	private Integer edadDe;
+	private Integer edadA;
 	
 	public String getIdOferta() {
 		return idOferta;
@@ -74,11 +76,24 @@ public class ConfiguracionDto {
 	public void setDistancia(Double distancia) {
 		this.distancia = distancia;
 	}
-	public Integer getIdGenero() {
-		return idGenero;
+	
+	public Integer getIdSexo() {
+		return idSexo;
 	}
-	public void setIdGenero(Integer idGenero) {
-		this.idGenero = idGenero;
+	public void setIdSexo(Integer idSexo) {
+		this.idSexo = idSexo;
+	}
+	public Integer getEdadDe() {
+		return edadDe;
+	}
+	public void setEdadDe(Integer edadDe) {
+		this.edadDe = edadDe;
+	}
+	public Integer getEdadA() {
+		return edadA;
+	}
+	public void setEdadA(Integer edadA) {
+		this.edadA = edadA;
 	}
 	public Double getPrecio() {
 		return precio;

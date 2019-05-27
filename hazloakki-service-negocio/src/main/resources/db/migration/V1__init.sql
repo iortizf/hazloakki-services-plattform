@@ -96,7 +96,7 @@ INSERT INTO cat_categoria_negocios (id_categoria,nombre,descripcion,estatus,fech
 
 CREATE TABLE negocios_acciones(
 	 id_negocio VARCHAR(255),
-	 id_accion VARCHAR(255) ,
+	 id_accion INT,
 	 PRIMARY KEY(id_negocio, id_accion),
 	 FOREIGN KEY (id_negocio) REFERENCES negocio (id_negocio)
 );

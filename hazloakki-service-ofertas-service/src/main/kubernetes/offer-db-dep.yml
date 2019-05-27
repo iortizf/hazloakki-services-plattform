@@ -12,21 +12,16 @@ spec:
     spec:
       containers:
       - name: offer-db
-        image: postgres:9.6.1-alpine
-        env:
-        - name: POSTGRES_USER
-          value: admin
-        - name: POSTGRES_PASSWORD
-          value: admin
-        - name: POSTGRES_DB
-          value: hazloakki_ofertas
-        - name: PGDATA
-          value: /var/lib/postgresql/data/offer
+        image: mongo
+        command:
+          - "mongod"
+          - "--bind_ip"
+          - "0.0.0.0"
         ports:
-        - containerPort: 5432
+        - containerPort: 27017
         volumeMounts:
         - name: offer-db-volume
-          mountPath: /var/lib/postgresql/data/offer
+          mountPath: /data/offer
       volumes:
         - name: offer-db-volume
           persistentVolumeClaim:

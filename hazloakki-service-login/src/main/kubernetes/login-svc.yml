@@ -3,6 +3,7 @@ kind: Service
 metadata:
   name: login-svc
 spec:
+  type: LoadBalancer
   ports:
   - port: 8087
     name: http

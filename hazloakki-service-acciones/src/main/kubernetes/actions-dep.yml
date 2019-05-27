@@ -1,0 +1,17 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: actions-dep
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: actions-app
+        tier: backend
+    spec:
+      containers:
+      - name: account
+        image: iortizf/actions-ms:0.0.1-snapshot
+        ports:
+        - containerPort: 8085

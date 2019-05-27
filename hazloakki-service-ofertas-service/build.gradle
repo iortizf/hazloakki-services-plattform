@@ -19,7 +19,7 @@ apply plugin: 'io.spring.dependency-management'
 apply plugin: com.bmuschko.gradle.docker.DockerRemoteApiPlugin
 
 group = 'com.hazloakki.ofertas'
-version = '0.0.1-SNAPSHOT'
+version = '0.0.2-SNAPSHOT'
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 

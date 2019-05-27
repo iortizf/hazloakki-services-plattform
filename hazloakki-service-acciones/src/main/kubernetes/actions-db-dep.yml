@@ -1,0 +1,33 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: actions-db-dep
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: actions-db
+        tier: database
+    spec:
+      containers:
+      - name: actions-db
+        image: postgres:9.6.1-alpine
+        env:
+        - name: POSTGRES_USER
+          value: admin
+        - name: POSTGRES_PASSWORD
+          value: admin
+        - name: POSTGRES_DB
+          value: hazloakki_acciones
+        - name: PGDATA
+          value: /var/lib/postgresql/data/actions
+        ports:
+        - containerPort: 5432
+        volumeMounts:
+        - name: actions-db-volume
+          mountPath: /var/lib/postgresql/data/actions
+      volumes:
+        - name: actions-db-volume
+          persistentVolumeClaim:
+            claimName: actions-db-pvc

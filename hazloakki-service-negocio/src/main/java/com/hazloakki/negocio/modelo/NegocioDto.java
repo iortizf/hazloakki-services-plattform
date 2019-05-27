@@ -147,7 +147,7 @@ public class NegocioDto {
 	public void setTipoTarjeta(List<TipoTarjetaDto> tipoTarjeta) {
 		this.tipoTarjeta = tipoTarjeta;
 	}
-		public List<Integer> getAcciones() {
+	public List<Integer> getAcciones() {
 		return acciones;
 	}
 	public void setAcciones(List<Integer> acciones) {

@@ -27,8 +27,7 @@ public class NegocioAccionesRepositoryImp extends SpringJdbcDao implements Negoc
 
 	@Override
 	public List<Integer> acciones(String idNegocio) {
-		return jdbcTemplate.query(qrySelectAccionesNegocio, new Object[] { idNegocio },
-				BeanPropertyRowMapper.newInstance(Integer.class));
+		return jdbcTemplate.query(qrySelectAccionesNegocio, new Object[] { idNegocio }, (rs, rowNum) -> rs.getInt("id_accion"));
 	}
 
 	@Override

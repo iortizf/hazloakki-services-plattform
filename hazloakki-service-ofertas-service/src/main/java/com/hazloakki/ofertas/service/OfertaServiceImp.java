@@ -40,7 +40,14 @@ public class OfertaServiceImp implements OfertaService {
 
 	@Override
 	public void modificar(String id, OfertaDto ofertaDto) {
-		ofertaRepository.modificar(Oferta.from(ofertaDto));
+		Oferta oferta = ofertaRepository.obtenerById(id);
+		if(oferta==null)
+			throw new OfertasException("No existe la oferta "+id, id);
+		
+		Configuracion config = ofertaRepository.obtenerConfig(id);
+		oferta = Oferta.from(ofertaDto);
+		oferta.setConfig(config);
+		ofertaRepository.modificar(oferta);
 	}
 
 	@Override

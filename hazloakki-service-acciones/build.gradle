@@ -1,23 +1,21 @@
 buildscript {
-  ext {
-    springBootVersion = '1.5.10.RELEASE'
-  }
-  repositories {
-    jcenter()
-    mavenCentral()
-  }
-  dependencies {
-    classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-    classpath("org.asciidoctor:asciidoctor-gradle-plugin:1.5.3")
-    classpath 'com.bmuschko:gradle-docker-plugin:3.2.0'
-  }
+	ext {
+		springBootVersion = '2.0.4.RELEASE'
+	}
+	repositories {
+		jcenter()
+		mavenCentral()
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+		classpath 'com.bmuschko:gradle-docker-plugin:3.2.5'
+	}
 }
 
 apply plugin: 'java'
 apply plugin: 'eclipse'
-apply plugin: 'idea'
 apply plugin: 'org.springframework.boot'
-apply plugin: 'jacoco'
+apply plugin: 'io.spring.dependency-management'
 apply plugin: com.bmuschko.gradle.docker.DockerRemoteApiPlugin
 
 
@@ -28,96 +26,55 @@ targetCompatibility = 1.8
 
 
 repositories {
-  mavenCentral()
+	jcenter()
+  	mavenCentral()
 }
 
 ext {
-  springBootAdminVersion = '1.5.7'
-  springCloudVersion = 'Edgware.SR2'
+  springCloudVersion = 'Finchley.SR1'
 }
 
 
-jar {
-	baseName = 'acciones-ms'
+bootJar {
+	baseName = 'actions-ms'
     version = ''
 }
 
-
 dependencies {
-  compile('org.springframework.boot:spring-boot-starter-actuator')
   compile('org.springframework.boot:spring-boot-starter-data-jpa')
   compile('org.springframework.boot:spring-boot-starter-web')
   
-  compile 'org.springframework.cloud:spring-cloud-starter-openfeign'
+  compile('org.springframework.cloud:spring-cloud-starter-openfeign')
   testCompile('org.springframework.boot:spring-boot-starter-test')
-  testCompile('org.springframework.restdocs:spring-restdocs-mockmvc')
   runtime('org.postgresql:postgresql')
   compile('org.flywaydb:flyway-core')
+  compile group: 'org.javassist', name: 'javassist', version: '3.24.1-GA'
 }
-
 
 dependencyManagement {
   imports {
-    mavenBom "de.codecentric:spring-boot-admin-dependencies:${springBootAdminVersion}"
     mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
   }
 }
 
-
-
-task createDockerfile(type: com.bmuschko.gradle.docker.tasks.image.Dockerfile) {
+task createDockerfile(type: com.bmuschko.gradle.docker.tasks.image.Dockerfile){
   destFile = project.file('build/libs/Dockerfile')
   from 'openjdk:8u171-jre-slim'
-  maintainer 'jovaniac@gmail.com"'
-  copyFile 'start.sh', '/start.sh'
-  copyFile 'wait-for-it.sh', '/wait-for-it.sh'
-  copyFile 'acciones-microservice.jar', '/opt/acciones-microservice.jar'
-  instruction {"RUN sh -c 'chmod +x *.sh'"}  
-  exposePort 8091
-  //entryPoint "/wait-for-it.sh","postgres:5433",  "--", "/start.sh"
-  entryPoint "/start.sh"
-  
+  maintainer 'Israel Ortiz Feria "iortiz.feria@gmail.com"'
+  copyFile bootJar.baseName+'.jar', '/opt/'+bootJar.baseName+'.jar'
+  entryPoint "java"
+  defaultCommand '-jar', '/opt/'+bootJar.baseName+'.jar'
+  exposePort 8085
 }
 
 task buildImage(type: com.bmuschko.gradle.docker.tasks.image.DockerBuildImage) {
   dependsOn createDockerfile
   inputDir = createDockerfile.destFile.parentFile
-  tag = 'jovaniac/acciones-microservice:' + project.version.toLowerCase()
-}
-
-
-/*************************************/
-task prepareFiles(type: Copy) {
-	from 'src/main/docker/app-docker/start.sh','src/main/docker/app-docker/wait-for-it.sh'
-	into 'build/libs/'
-}
-
-task moveDockerFile(type: Copy) {
-	from '/build/libs/Dockerfile', '/build/libs/acciones-microservice.jar'
-	into '/src/main/docker/app-docker'
-}
-
-task moveJarFile(type: Copy) {
-	from('/build/libs/')
-	into('/src/main/docker/app-docker/')
+  tag = 'iortizf/'+bootJar.baseName+':' + project.version.toLowerCase()
 }
 
 task pushImage(type: com.bmuschko.gradle.docker.tasks.image.DockerPushImage) {
   dependsOn buildImage
-  def dockerRegistryCredentials = new com.bmuschko.gradle.docker.DockerRegistryCredentials()
-  dockerRegistryCredentials.password = System.properties['""']
-  dockerRegistryCredentials.username = System.properties['""']
   imageName = buildImage.tag
-  registryCredentials = dockerRegistryCredentials
 }
-
-
-
-build.dependsOn createDockerfile
-
-/*************************************/
-buildImage.dependsOn prepareFiles
-createDockerfile.dependsOn bootRepackage
-prepareFiles.dependsOn moveDockerFile
-buildImage.dependsOn moveDockerFile
 

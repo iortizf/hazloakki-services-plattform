@@ -128,9 +128,10 @@ public class NegocioServiceImpl implements NegocioService {
 		});			
 		
 		negocio.getAcciones().forEach(idAccion -> negocioAccionesRepository.guardar(idNegocio, idAccion));
+		horarioRepository.eliminarHorarioNegocio(idNegocio);
 		negocio.getHorario().forEach(horario -> {
 			horario.setIdNegocio(idNegocio);
-			horarioRepository.actualizar(horario);
+			horarioRepository.guardar(horario);
 		});
 
 		return obtenerNegocio(idNegocio);
@@ -150,9 +151,8 @@ public class NegocioServiceImpl implements NegocioService {
 		negocioMetodoPagoRepository.eliminar(idNegocio);
 		negocioTarjetasPagoRepository.eliminar(idNegocio);
 		negocioAccionesRepository.eliminar(idNegocio);
-		
-		negocioRepository.eliminarByIdNegocio(idNegocio);
 		horarioRepository.eliminarHorarioNegocio(idNegocio);
+		negocioRepository.eliminarByIdNegocio(idNegocio);		
 
 	}
 

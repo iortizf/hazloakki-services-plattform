@@ -3,6 +3,7 @@ kind: Service
 metadata:
   name: business-svc
 spec:
+  type: LoadBalancer
   ports:
   - port: 8086
     name: http

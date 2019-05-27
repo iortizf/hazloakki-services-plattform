@@ -40,14 +40,14 @@ public class OfertaImagenesController {
 	}
 	
 	@DeleteMapping("/{idOferta}/imagenes/{idImagen}")
-	public void borrarNegocioImagen(@PathVariable("idOferta") String idOferta,
+	public void borrarOfertaImagen(@PathVariable("idOferta") String idOferta,
 			@PathVariable("idImagen") String idImagen) {
 		
 		negocioImagenService.eliminarImagen(idOferta, idImagen);
 	}	
 	
 	@DeleteMapping("/{id}/imagenes")
-	public void borrarNegocioImagenes(@PathVariable("id") String idOferta) {
+	public void borrarOfertaImagenes(@PathVariable("id") String idOferta) {
 		negocioImagenService.eliminarImagenesOferta(idOferta);
 	}
 }

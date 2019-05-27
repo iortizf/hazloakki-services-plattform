@@ -62,7 +62,7 @@ public class OfertasController {
 	
 	@PatchMapping("/{idOferta}")
 	public void modificaEstatusOferta(@PathVariable("idOferta") String idOferta, 
-			@RequestParam("idEstatus") Integer idEstatus ) {
+			@RequestBody Integer idEstatus ) {
 		ofertaService.modificarEstatus(idOferta, idEstatus);
 	}
 	

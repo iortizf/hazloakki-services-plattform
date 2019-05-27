@@ -10,7 +10,8 @@ spring:
       ddl-auto: update 
   datasource:
     platform: postgres
-    url: jdbc:postgresql://localhost:5432/hazloakki_acciones
+    url: jdbc:postgresql://actions-db-svc/hazloakki_acciones
+    #url: jdbc:postgresql://localhost:5432/hazloakki_acciones
     username: admin
     password: admin
     driverClassName: org.postgresql.Driver 
