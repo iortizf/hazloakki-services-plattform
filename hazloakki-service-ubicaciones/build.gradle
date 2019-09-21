@@ -1,0 +1,74 @@
+buildscript {
+	ext {
+		springBootVersion = '2.1.6.RELEASE'
+	}
+	repositories {
+		jcenter()
+		mavenCentral()
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+		classpath 'com.bmuschko:gradle-docker-plugin:3.2.5'
+	}
+}
+
+apply plugin: 'java'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+apply plugin: com.bmuschko.gradle.docker.DockerRemoteApiPlugin
+
+group = 'com.hazloakki.ubicaciones'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.8'
+
+bootJar {
+	baseName = 'business-ms'
+    version = ''
+}
+
+repositories {
+	jcenter()
+  	mavenCentral()
+}
+
+ext {
+  springCloudVersion = 'Finchley.SR1'
+}
+
+dependencies {
+	compile('org.springframework.cloud:spring-cloud-starter-openfeign')
+	implementation 'org.springframework.boot:spring-boot-starter'
+	compile('org.springframework.boot:spring-boot-starter-web')
+	implementation 'com.firebase:geofire-java:3.0.0'
+	implementation 'com.google.firebase:firebase-admin:6.8.1'
+	compile 'io.kubernetes:client-java:5.0.0'
+}
+
+
+dependencyManagement {
+  imports {
+    mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+  }
+}
+
+
+task createDockerfile(type: com.bmuschko.gradle.docker.tasks.image.Dockerfile){
+  destFile = project.file('build/libs/Dockerfile')
+  from 'openjdk:8u171-jre-slim'
+  maintainer 'Israel Ortiz Feria "iortiz.feria@gmail.com"'
+  copyFile bootJar.baseName+'.jar', '/opt/'+bootJar.baseName+'.jar'
+  entryPoint "java"
+  defaultCommand '-jar', '/opt/'+bootJar.baseName+'.jar'
+  exposePort 8086
+}
+
+task buildImage(type: com.bmuschko.gradle.docker.tasks.image.DockerBuildImage) {
+  dependsOn createDockerfile
+  inputDir = createDockerfile.destFile.parentFile
+  tag = 'iortizf/'+bootJar.baseName+':' + project.version.toLowerCase()
+}
+
+task pushImage(type: com.bmuschko.gradle.docker.tasks.image.DockerPushImage) {
+  dependsOn buildImage
+  imageName = buildImage.tag
+}
