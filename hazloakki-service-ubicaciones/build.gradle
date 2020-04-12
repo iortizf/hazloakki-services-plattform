@@ -37,11 +37,13 @@ ext {
 
 dependencies {
 	compile('org.springframework.cloud:spring-cloud-starter-openfeign')
+	compile('io.github.openfeign:feign-httpclient')
 	implementation 'org.springframework.boot:spring-boot-starter'
 	compile('org.springframework.boot:spring-boot-starter-web')
 	implementation 'com.firebase:geofire-java:3.0.0'
 	implementation 'com.google.firebase:firebase-admin:6.8.1'
 	compile 'io.kubernetes:client-java:5.0.0'
+	implementation 'com.google.firebase:firebase-admin:6.8.1'
 }
 
 

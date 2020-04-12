@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.hazloakki.ubicaciones.models.NegocioDto;
 
-@FeignClient(name = "business-svc", url = "http://business-svc:8086")
-public interface ObtenerNegocio {
+@FeignClient(name = "business-svc", url = "http://10.152.183.96:8086")
+public interface ApiNegocio {
 	
 	@RequestMapping(method = GET, value = "/api/v1/negocios/{id}")
 	NegocioDto obtenerNegocio(@PathVariable("id") String id);

@@ -1,31 +1,34 @@
 package com.hazloakki.ubicaciones.services;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.hazloakki.ubicaciones.clients.ObtenerOferta;
+import com.hazloakki.ubicaciones.clients.ApiNegocio;
+import com.hazloakki.ubicaciones.clients.ApiOferta;
 import com.hazloakki.ubicaciones.models.NegocioDto;
 import com.hazloakki.ubicaciones.models.OfertaDto;
 
-@Service("ubicacionService")
+@Service
 public class UbicacionServiceImp implements UbicacionService {
 
 	@Autowired
-	private ObtenerOferta obtenerOferta;
+	private ApiOferta apiOferta;
+	@Autowired
+	private ApiNegocio apiNegocio;
 	
 	@Override
 	public OfertaDto obtenerOferta(String idOferta) {
-		return obtenerOferta.obtenerOfertasById(idOferta);		
+		return apiOferta.obtenerOfertasById(idOferta);		
 	}
 
 	@Override
 	public NegocioDto obtenerNegocio(String idNegocio) {
-		// TODO Auto-generated method stub
-		return null;
+		return apiNegocio.obtenerNegocio(idNegocio);
 	}
 
-	
+	@Override
+	public void actualizarEstatusOferta(String idOferta, Integer idEstatus) {
+		apiOferta.modificarEstatus(idOferta, idEstatus);		
+	}	
 
 }

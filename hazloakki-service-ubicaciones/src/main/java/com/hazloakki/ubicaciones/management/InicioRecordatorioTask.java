@@ -21,10 +21,10 @@ public class InicioRecordatorioTask extends TimerTask {
 	@Override
 	public void run() {
 		DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-		System.out.println("Ejecutando Tarea InicioRecordatorioTask");
-		System.out.println("Hora actual: " + df.format(new Date()));
+		System.out.println("***Ejecutando Tarea InicioRecordatorioTask");
+		System.out.println("***Hora actual: " + df.format(new Date()));
 
-		System.out.println("Notificando al emprendedor que en " + obtenerTiempo(configDto.getIdRecordatorioInicio()) + " se lanza la oferta "+ ofertaDto.getTitulo());
+		System.out.println("***Notificando al emprendedor que en " + obtenerTiempo(configDto.getIdRecordatorioInicio()) + " se lanza la oferta "+ ofertaDto.getTitulo());
 	}
 
 	private int  obtenerTiempo(int idRecordatorio) {
