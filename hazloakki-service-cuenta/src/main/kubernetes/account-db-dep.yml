@@ -1,9 +1,14 @@
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: account-db-dep
+
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      app: account-db
+      tier: database
   template:
     metadata:
       labels:
@@ -13,6 +18,7 @@ spec:
       containers:
       - name: account-db
         image: postgres:9.6.1-alpine
+        imagePullPolicy: Always
         env:
         - name: POSTGRES_USER
           value: admin

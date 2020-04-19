@@ -1,9 +1,13 @@
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: actions-dep
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      app: actions-app
+      tier: backend
   template:
     metadata:
       labels:
@@ -13,5 +17,6 @@ spec:
       containers:
       - name: account
         image: iortizf/actions-ms:0.0.1-snapshot
+        imagePullPolicy: Always
         ports:
         - containerPort: 8085

@@ -40,7 +40,7 @@ public class AppConfig {
 	
 	@Bean
 	public Mongobee mongobee(MongoTemplate template) throws Exception{
-	  Mongobee runner = new Mongobee();	
+	  Mongobee runner = new Mongobee("mongodb://offer-db-svc:27017/hazloakki_ofertas");	
 	  runner.setDbName("hazloakki_ofertas");
 	  runner.setChangeLogsScanPackage("com.hazloakki.ofertas.changelogs");
 	  runner.setMongoTemplate(template);

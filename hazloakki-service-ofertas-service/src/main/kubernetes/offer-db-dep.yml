@@ -1,9 +1,13 @@
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: offer-db-dep
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      app: offer-db
+      tier: database
   template:
     metadata:
       labels:
@@ -13,6 +17,7 @@ spec:
       containers:
       - name: offer-db
         image: mongo
+        imagePullPolicy: Always
         command:
           - "mongod"
           - "--bind_ip"

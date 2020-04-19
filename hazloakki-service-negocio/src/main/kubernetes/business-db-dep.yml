@@ -1,9 +1,13 @@
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: business-db-dep
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      app: business-db
+      tier: database
   template:
     metadata:
       labels:
@@ -13,6 +17,7 @@ spec:
       containers:
       - name: business-db
         image: postgres:9.6.1-alpine
+        imagePullPolicy: Always
         env:
         - name: POSTGRES_USER
           value: admin
